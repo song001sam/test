@@ -1,0 +1,199 @@
+<div>
+    <h1 class="page-header">
+        智能分析>生产数据统计分析
+    </h1>
+    <div class="row">
+        <div class="col-lg-2">数据时间</div>
+        <div class="col-lg-5" style="vertical-align: middle;">
+            <p class="input-group col-lg-5" style="float: left;">
+                <input class="form-control input-sm" close-text="Close" datepicker-options="dateOptions"
+                       is-open="popup1.opened"
+                       ng-model="dt1" ng-required="true" type="text" uib-datepicker-popup/>
+                <span class="input-group-btn">
+            <button class="btn btn-default input-sm" ng-click="open1()" type="button"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+            <span class="col-lg-2 text-center">至</span>
+            <p class="input-group col-lg-5">
+                <input class="form-control input-sm" close-text="Close" datepicker-options="dateOptions"
+                       is-open="popup2.opened"
+                       ng-model="dt2" ng-required="true" type="text" uib-datepicker-popup/>
+                <span class="input-group-btn">
+            <button class="btn btn-default input-sm" ng-click="open2()" type="button"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+        </div>
+        <div class="col-lg-1">钢种</div>
+        <div class="col-lg-2">
+
+            <select class="form-control">
+                <option>45钢</option>
+                <option>40Cr钢</option>
+                <option>GCr15钢</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary input-sm" type="button">查询</button>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-2">数据概况</div>
+        <div class="col-lg-10">总记录数：13029</div>
+
+    </div>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-5"><span>数据量分布-按天</span></div>
+        <div class="col-lg-3"><span>按化学成分占比分布</span><select ng-change="selectChange();" ng-model="select1">
+            <option>C</option>
+            <option>Si</option>
+        </select></div>
+        <div class="col-lg-4"><span>化学成分数值分布</span></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5" id="echarts1" style="height:300px"></div>
+        <div class="col-lg-3" id="echarts2" style="height:300px"></div>
+        <div class="col-lg-4" id="echarts3" style="height:300px"></div>
+    </div>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-2"> 模型分析</div>
+        <div class="col-lg-4">
+            <select>
+                <option value="45钢-屈服强度线性模型">45钢-屈服强度线性模型</option>
+                <option value="45钢-屈服强度非线性模型">45钢-屈服强度非线性模型</option>
+                <option value="45钢-抗拉强度线性模型">45钢-抗拉强度线性模型</option>
+                <option value="45钢-抗拉强度非线性模型">45钢-抗拉强度非线性模型</option>
+                <option value="40Cr钢-屈服强度线性模型">40Cr钢-屈服强度线性模型</option>
+                <option value="40Cr钢-屈服强度非线性模型">40Cr钢-屈服强度非线性模型</option>
+                <option value="40Cr钢-抗拉强度线性模型">40Cr钢-抗拉强度线性模型</option>
+                <option value="40Cr钢-抗拉强度非线性模型">40Cr钢-抗拉强度非线性模型</option>
+                <option value="GCr15钢-屈服强度线性模型">GCr15钢-屈服强度线性模型</option>
+                <option value="GCr15钢-屈服强度非线性模型">GCr15钢-屈服强度非线性模型</option>
+                <option value="GCr15钢-抗拉强度线性模型">GCr15钢-抗拉强度线性模型</option>
+                <option value="GCr15钢-抗拉强度非线性模型">GCr15钢-抗拉强度非线性模型</option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary input-sm" ng-click="loadData();" type="button">数据加载</button>
+        </div>
+        <div class="col-lg-4 ">
+            <button class="btn btn-primary input-sm pull-right" ng-click="clickChange();" type="button">切换图表</button>
+        </div>
+    </div>
+    <div class="row col-lg-12 table-responsive">
+        <table class="table-striped table-bordered table-hover table" id='table'
+               ng-show="isshow" style="word-break:break-all; word-wrap:break-all;">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>钢种名称</th>
+                <th>数据时间</th>
+                <th>C</th>
+                <th>Si</th>
+                <th>Mn</th>
+                <th>P</th>
+                <th>S</th>
+                <th>Cr</th>
+                <th>Ni</th>
+                <th>Cu</th>
+                <th>屈服强度</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>45钢</td>
+                <td>2018/12/22</td>
+                <td>0.459</td>
+                <td>0.201</td>
+                <td>0.597</td>
+                <td>0.011</td>
+                <td>0.007</td>
+                <td>0.046</td>
+                <td>0.160</td>
+                <td>0.056</td>
+                <td>361</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>45钢</td>
+                <td>2018/12/22</td>
+                <td>0.453</td>
+                <td>0.21</td>
+                <td>0.596</td>
+                <td>0.014</td>
+                <td>0.007</td>
+                <td>0.055</td>
+                <td>0.265</td>
+                <td>0.19</td>
+                <td>366</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>45钢</td>
+                <td>2018/12/22</td>
+                <td>0.454</td>
+                <td>0.231</td>
+                <td>0.659</td>
+                <td>0.017</td>
+                <td>0.007</td>
+                <td>0.056</td>
+                <td>0.045</td>
+                <td>0</td>
+                <td>372</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>45钢</td>
+                <td>2018/12/22</td>
+                <td>0.457</td>
+                <td>0.224</td>
+                <td>0.658</td>
+                <td>0.012</td>
+                <td>0.005</td>
+                <td>0.04</td>
+                <td>0.274</td>
+                <td>0.023</td>
+                <td>373</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>45钢</td>
+                <td>2018/12/22</td>
+                <td>0.454</td>
+                <td>0.219</td>
+                <td>0.585</td>
+                <td>0.012</td>
+                <td>0.006</td>
+                <td>0.082</td>
+                <td>0.149</td>
+                <td>0.121</td>
+                <td>366</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>45钢</td>
+                <td>2018/12/22</td>
+                <td>0.444</td>
+                <td>0.211</td>
+                <td>0.637</td>
+                <td>0.012</td>
+                <td>0.003</td>
+                <td>0.045</td>
+                <td>0.030</td>
+                <td>0.125</td>
+                <td>374</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="col-lg-12" id="echarts4" ng-show="isshowcharts" style="height: 400px"></div>
+    </div>
+    <div class="pull-right" ng-show="isshow">
+        <ul boundary-links="true" class="pagination-sm" first-text="&laquo;" last-text="&raquo;" next-text="&rsaquo;"
+            ng-model="currentPage" previous-text="&lsaquo;" total-items="totalItems" uib-pagination></ul>
+    </div>
+</div>
