@@ -19,7 +19,7 @@ define(function (require) {
         };
         $scope.groups = [
             {
-                list: [{content: "模型管理", url: "index.GCGL"}, {content: "生产数据统计分析", url: "index.TJFX"}, {
+                list: [{content: "模型管理", url: "index.MXGL"}, {content: "生产数据统计分析", url: "index.TJFX"}, {
                     content: "新钢种成分分析",
                     url: "index.CFFX"
                 }], title: "智能分析"

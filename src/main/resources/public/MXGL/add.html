@@ -1,0 +1,24 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">新增</h3>
+    </div>
+    <div class="modal-body" id="modal-body" style="height: 150px;">
+        <div>
+            <div class="col-lg-4"><span>模型类别</span><input name="mxglmxlb" ng-model="mxglmxlb" class="form-control">
+            </div>
+            <div class="col-lg-8"><span>模型名称</span><input name="mxglmxmc" ng-model="mxglmxmc" class="form-control">
+            </div>
+        </div>
+        <div>
+            <div class="col-lg-4"><span>适用范围</span><input name="mxglsyfw" ng-model="mxglsyfw" class="form-control">
+            </div>
+            <div class="col-lg-8"><span>模型说明</span><input name="mxglmxsm" ng-model="mxglmxsm" class="form-control">
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

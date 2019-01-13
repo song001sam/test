@@ -8,16 +8,15 @@ define(function (require) {
             templateUrl: function () {
                 return 'index1.html';
             },
-
             controllerUrl: 'app/indexController',
             controller: 'indexController'
-        }).state('index.GCGL', {
-            url: '/GCGL',//ui-sref中的接受参数
+        }).state('index.MXGL', {
+            url: '/MXGL',//ui-sref中的接受参数
             templateUrl: function () {
-                return 'GCGL/list.html';
+                return 'MXGL/list.html';
             },
-            controllerUrl: 'app/GCGL/GCGL',
-            controller: 'GCGLController'
+            controllerUrl: 'app/MXGL/MXGL',
+            controller: 'MXGLController'
         })
             .state('index.TJFX', {
                 url: '/TJFX',//ui-sref中的接受参数

@@ -1,0 +1,44 @@
+<div>
+    <h1 class="page-header">
+        智能分析>模型管理
+    </h1>
+    <div class="pull-right" ng-show="false">
+        <button class="btn btn-primary " ng-click="open();">新增</button>
+        <button class="btn btn-info"> 修改</button>
+        <button class="btn btn-danger"> 删除</button>
+    </div>
+    <div class="col-lg-12">
+        <table class="table-striped table-bordered table-hover table-responsive table">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>序号</th>
+                <th>模型类别</th>
+                <th>模型名称</th>
+                <th>适用范围</th>
+                <th>模型说明</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="model in list">
+
+            <tr>
+                <td><input type="radio" name="radio"/></td>
+                <td>{{$index+1}}</td>
+                <td>{{model.mxglmxlb}}</td>
+                <td>{{model.mxglmxmc}}</td>
+                <td>
+                    {{model.mxglsyfw}}
+                </td>
+                <td>{{model.mxglmxsm}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="pull-right">
+            <ul boundary-links="true" class="pagination-sm" first-text="&laquo;" last-text="&raquo;" ng-change="page()"
+                next-text="&rsaquo;" ng-model="currentPage" previous-text="&lsaquo;" total-items="totalItems"
+                items-per-page="5"
+                uib-pagination></ul>
+        </div>
+    </div>
+</div>

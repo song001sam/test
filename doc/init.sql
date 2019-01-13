@@ -1,25 +1,52 @@
-drop table t_Sys_User;
-drop table t_Sys_Role;
-drop table t_Sys_Permission;
-drop table t_Sys_User_2_Role;
-drop table t_Sys_Role_2_Permission;
-create table t_Sys_User(id INT NOT NULL,userCode varchar(30),userName varchar(30),password varchar (60) ,salt varchar(30),PRIMARY KEY ( id ));
-create table t_Sys_Role(id INT NOT NULL,roleCode varchar(30),roleName varchar(30),primary key (id));
-create table t_Sys_Permission(id INT NOT NULL,pName varchar(30),pType varchar(30),pCode varchar(30),url varchar(255),sort varchar(30),pid int NOT NULL,primary key (id));
-create table t_Sys_User_2_Role(uid int,rid int);
-create table t_Sys_Role_2_Permission(rid int,pid int);
-insert into t_Sys_User values (1,'admin','admin','$2a$10$mz5lXGRu/F6950zzQ2Y2au1CiCx5AR3gOcqkVtGVK8H6Nk83IBklW','');
-insert into t_Sys_Role values (1,'adminRole','adminRole');
-insert into t_Sys_Role values (2,'guestRole','guestRole');
-insert into t_Sys_Permission values (1,'首页','首页','index','/index.html','1','0');
-insert into t_Sys_Permission values (2,'首页','首页','index','/index.html','1','0');
-insert into t_Sys_Permission values (3,'错误','错误','error','/error.html','1','0');
-insert into t_Sys_User_2_Role values ('1','1');
-insert into t_Sys_User_2_Role values ('1','2');
-insert into t_Sys_Role_2_Permission values ('1','1');
-insert into t_Sys_Role_2_Permission values ('2','2');
-insert into t_Sys_Role_2_Permission values ('1','3');
+
+create table t_MXGL_model(id INT NOT NULL,MXGLMXLB varchar(30),MXGLMXMC varchar(30),MXGLSYFW varchar(30),MXGLMXSM varchar (255))
 
 
+insert into t_MXGL_model values('1','新钢种','45钢-屈服强度线性模型','45钢屈服强度力学性能分析 ','本模型为化学成分与力学性能的线性关系模型，针对45钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析屈服强度力学性能');
+insert into t_MXGL_model values('2','新钢种','45钢-屈服强度非线性模型','45钢屈服强度力学性能分析 ','本模型为化学成分与力学性能的非线性关系模型，针对45钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析屈服强度力学性能');
+insert into t_MXGL_model values('3','新钢种','45钢-抗拉强度线性模型','45钢抗拉强度力学性能分析 ','本模型为化学成分与力学性能的线性关系模型，针对45钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析抗拉强度力学性能');
+insert into t_MXGL_model values('4','新钢种','45钢-抗拉强度非线性模型','45钢抗拉强度力学性能分析 ','本模型为化学成分与力学性能的非线性关系模型，针对45钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析抗拉强度力学性能');
+insert into t_MXGL_model values('5','新钢种','40钢-屈服强度线性模型','40钢屈服强度力学性能分析 ','本模型为化学成分与力学性能的线性关系模型，针对40钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析屈服强度力学性能');
+insert into t_MXGL_model values('6','新钢种','40钢-屈服强度非线性模型','40钢屈服强度力学性能分析 ','本模型为化学成分与力学性能的非线性关系模型，针对40钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析屈服强度力学性能');
+insert into t_MXGL_model values('7','新钢种','40钢-抗拉强度线性模型','40钢抗拉强度力学性能分析 ','本模型为化学成分与力学性能的线性关系模型，针对40钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析抗拉强度力学性能');
+insert into t_MXGL_model values('8','新钢种','40钢-抗拉强度非线性模型','40钢抗拉强度力学性能分析 ','本模型为化学成分与力学性能的非线性关系模型，针对40钢的化学成分C、Si、Mn、P、S、Cr、Ni、 C，分析抗拉强度力学性能');
 
-select u.*,r.*,p.* from t_Sys_User u inner join t_Sys_User_2_Role ur on u.id=ur.uid left join t_Sys_Role r on ur.rid=r.id inner join t_Sys_Role_2_Permission rp on r.id=rp.rid left join t_Sys_Permission p on rp.pid=p.id where u.userName='admin'
+create table ts_Gthl(id Int not null,code varchar(30),name varchar(30),value1 decimal(3,3),value2 decimal(3,3),primary key (id));
+insert into ts_Gthl values('1','C','','0.42','0.5');
+insert into ts_Gthl values('2','Si','','0.17','0.37');
+insert into ts_Gthl values('3','Mn','','0.5','0.8');
+insert into ts_Gthl values('4','P','','0.0','0.035');
+insert into ts_Gthl values('5','S','','0.0','0.035');
+insert into ts_Gthl values('6','Cr','','0.0','0.25');
+insert into ts_Gthl values('7','Ni','','0.0','0.3');
+insert into ts_Gthl values('8','Cu','','0.0','0.2');
+
+CREATE TABLE `t_gt_1` (
+  `C` decimal(10,5) DEFAULT NULL,
+  `Si` decimal(10,5) DEFAULT NULL,
+  `Mn` decimal(10,5) DEFAULT NULL,
+  `P` decimal(10,5) DEFAULT NULL,
+  `S` decimal(10,5) DEFAULT NULL,
+  `Cr` decimal(10,5) DEFAULT NULL,
+  `Ni` decimal(10,5) DEFAULT NULL,
+  `Cu` decimal(10,5) DEFAULT NULL,
+  `Rel` decimal(10,5) DEFAULT NULL,
+  `Rm` decimal(10,5) DEFAULT NULL,
+  `A` decimal(10,5) DEFAULT NULL,
+  `Z` decimal(10,5) DEFAULT NULL
+)load data local infile 'D:/work/文档/中冶/data40crNohead.txt' into table t_GT_1;
+
+CREATE TABLE `t_gt_0` (
+  `C` decimal(10,5) DEFAULT NULL,
+  `Si` decimal(10,5) DEFAULT NULL,
+  `Mn` decimal(10,5) DEFAULT NULL,
+  `P` decimal(10,5) DEFAULT NULL,
+  `S` decimal(10,5) DEFAULT NULL,
+  `Cr` decimal(10,5) DEFAULT NULL,
+  `Ni` decimal(10,5) DEFAULT NULL,
+  `Cu` decimal(10,5) DEFAULT NULL,
+  `Rel` decimal(10,5) DEFAULT NULL,
+  `Rm` decimal(10,5) DEFAULT NULL,
+  `A` decimal(10,5) DEFAULT NULL,
+  `Z` decimal(10,5) DEFAULT NULL
+)load data local infile 'D:/work/文档/中冶/data45Nohead.txt' into table t_GT_0;
