@@ -8,4 +8,6 @@ public interface MathService {
     public double getVariance(double[] arr);
 
     public double[][] getPearsonsCorrelation(double[][] arr);
+
+    public double[][] getPearsonsCorrelationPValue(double[][] arr);
 }

@@ -17,7 +17,7 @@ define(['echarts',
         $scope.hxcf = {};
         $http({
             method: "GET",
-            url: "/Tjfx/listhxcf/" + $scope.selectGT
+            url: "Tjfx/listhxcf/" + $scope.selectGT
         }).then(function (response) {
 
             $scope.hxcf = response.data
@@ -27,7 +27,7 @@ define(['echarts',
         $scope.GTchange = function () {
             $http({
                 method: "GET",
-                url: "/Tjfx/listhxcf/" + $scope.selectGT
+                url: "Tjfx/listhxcf/" + $scope.selectGT
             }).then(function (response) {
 
                 $scope.hxcf = response.data

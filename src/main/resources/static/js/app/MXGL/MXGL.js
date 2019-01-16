@@ -8,7 +8,7 @@ define(function (require) {
         $scope.page = function () {
             $http({
                 method: "GET",
-                url: "/Mxgl/list/" + $scope.currentPage + "/5"
+                url: "Mxgl/list/" + $scope.currentPage + "/5"
             }).then(function (response) {
                 $scope.totalItems = response.data.total;
                 $scope.list = response.data.list;
@@ -46,7 +46,7 @@ define(function (require) {
         $scope.ok = function () {
             $http({
                 method: "POST",
-                url: "/Mxgl/add/",
+                url: "Mxgl/add/",
                 data: {
                     "mxglmxlb": $scope.mxglmxlb,
                     "mxglmxmc": $scope.mxglmxmc,

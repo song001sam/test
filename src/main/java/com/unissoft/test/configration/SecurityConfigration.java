@@ -46,7 +46,7 @@ public class SecurityConfigration extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .sessionManagement()
-                .invalidSessionUrl("/authentication/sessionOut")
+
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(3600)

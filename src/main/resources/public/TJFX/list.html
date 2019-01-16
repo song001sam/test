@@ -31,7 +31,7 @@
             <select class="form-control" ng-model="selectGT" ng-init="selectGT = '0'">
                 <option value="0">45钢</option>
                 <option value="1">40Cr钢</option>
-                <option value="2">GCr15钢</option>
+                <!--<option value="2">GCr15钢</option>-->
             </select>
         </div>
         <div class="col-lg-2">
@@ -69,7 +69,7 @@
     <div class="row">
         <div class="col-lg-2"> 模型分析</div>
         <div class="col-lg-4">
-            <select>
+            <select ng-change="mxChange();" ng-model="mx">
                 <option value="45钢-屈服强度线性模型">45钢-屈服强度线性模型</option>
                 <option value="45钢-屈服强度非线性模型">45钢-屈服强度非线性模型</option>
                 <option value="45钢-抗拉强度线性模型">45钢-抗拉强度线性模型</option>
@@ -78,10 +78,10 @@
                 <option value="40Cr钢-屈服强度非线性模型">40Cr钢-屈服强度非线性模型</option>
                 <option value="40Cr钢-抗拉强度线性模型">40Cr钢-抗拉强度线性模型</option>
                 <option value="40Cr钢-抗拉强度非线性模型">40Cr钢-抗拉强度非线性模型</option>
-                <option value="GCr15钢-屈服强度线性模型">GCr15钢-屈服强度线性模型</option>
-                <option value="GCr15钢-屈服强度非线性模型">GCr15钢-屈服强度非线性模型</option>
-                <option value="GCr15钢-抗拉强度线性模型">GCr15钢-抗拉强度线性模型</option>
-                <option value="GCr15钢-抗拉强度非线性模型">GCr15钢-抗拉强度非线性模型</option>
+                <!--<option value="GCr15钢-屈服强度线性模型">GCr15钢-屈服强度线性模型</option>-->
+                <!--<option value="GCr15钢-屈服强度非线性模型">GCr15钢-屈服强度非线性模型</option>-->
+                <!--<option value="GCr15钢-抗拉强度线性模型">GCr15钢-抗拉强度线性模型</option>-->
+                <!--<option value="GCr15钢-抗拉强度非线性模型">GCr15钢-抗拉强度非线性模型</option>-->
             </select>
         </div>
         <div class="col-lg-2">

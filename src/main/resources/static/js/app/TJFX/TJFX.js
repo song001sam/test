@@ -8,7 +8,7 @@ define(['echarts',
         $scope.currentPage = 1;
         $scope.isshow = false;
         $scope.isshowcharts = false;
-        $scope.select1 = "C";
+        // $scope.select1 = "C";
         $scope.open2 = function () {
             $scope.popup2.opened = true;
         };
@@ -29,10 +29,11 @@ define(['echarts',
         $scope.loadData = function () {
             $http({
                 method: "GET",
-                url: "/Tjfx/listPage/" + $scope.selectGT + "/" + $scope.currentPage + "/5"
+                url: "Tjfx/listPage/" + $scope.selectGT + "/" + $scope.currentPage + "/5"
             }).then(function (response) {
                 $scope.totalItems = response.data.total;
                 $scope.list = response.data.list;
+
             }, function (response) {
             });
 
@@ -54,24 +55,27 @@ define(['echarts',
         $scope.sel = function () {
             $http({
                 method: "GET",
-                url: "/Tjfx/listGthl/"
+                url: "Tjfx/listGthl/"
             }).then(function (resq) {
                 $scope.gt = resq.data;
-                $scope.select1 = 'C';
 
+                // $scope.select1 = $scope.gt[0].code
+                // console.info($scope.select1 )
                 $http({
                     method: "GET",
-                    url: "/Tjfx/list/" + $scope.selectGT
+                    url: "Tjfx/list/" + $scope.selectGT
                 }).then(function (response) {
+
                     $scope.gtmx = response.data;
+                    $scope.selectChange();
                     $scope.echarts2Data = {
                         max: 0,
                         mm: 0,
                         min: 0
                     };
                     angular.forEach($scope.gt, function (item, index) {//找到选中的元素的分割线
-
-                        if (item.code == $scope.select1) {
+                        console.info($scope.select1)
+                        if (item.code == $scope.select1.code) {
                             $scope.gtmin = item.value1;
                             $scope.gtmax = item.value2;
 
@@ -79,10 +83,10 @@ define(['echarts',
                     });
                     $http({
                         method: "GET",
-                        url: "/Tjfx/listhxcf/" + $scope.selectGT
+                        url: "Tjfx/listhxcf/" + $scope.selectGT
                     }).then(function (response1) {
                         $scope.hxcf = response1.data
-                        console.info($scope.hxcf)
+
                         ec.init(document.getElementById('echarts3')).setOption({
                             tooltip: {
                                 trigger: 'item',
@@ -298,9 +302,10 @@ define(['echarts',
 
             // var echarts2 = ec.init(document.getElementById('echarts2'));
 
-
         };
         $scope.selectChange = function () {
+            if (!$scope.select1)
+                $scope.select1 = $scope.gt[0];
             $scope.echarts2Data = {
                 max: 0,
                 mm: 0,
@@ -670,12 +675,15 @@ define(['echarts',
         $scope.page = function () {
             $http({
                 method: "GET",
-                url: "/Tjfx/listPage/" + $scope.selectGT + "/" + $scope.currentPage + "/5"
+                url: "Tjfx/listPage/" + $scope.selectGT + "/" + $scope.currentPage + "/5"
             }).then(function (response) {
                 $scope.totalItems = response.data.total;
                 $scope.list = response.data.list;
             }, function (response) {
             });
+        }
+        $scope.mxChange = function () {
+
         }
     });
 

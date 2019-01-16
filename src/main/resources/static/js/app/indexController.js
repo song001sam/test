@@ -4,7 +4,7 @@ define(function (require) {
     app.controller('indexController', function ($scope, $http, $state) {
         $http({
             method: "POST",
-            url: "/public/getUser"
+            url: "public/getUser"
 
         }).then(function (response) {
             $scope.userName = response.data.username
@@ -22,6 +22,9 @@ define(function (require) {
                 list: [{content: "模型管理", url: "index.MXGL"}, {content: "生产数据统计分析", url: "index.TJFX"}, {
                     content: "新钢种成分分析",
                     url: "index.CFFX"
+                }, {
+                    content: "单工序分析",
+                    url: "index.XSMX"
                 }], title: "智能分析"
             },
             {list: [{content: "123", url: "a"}, {content: "456", url: "b({id:'aa'})"}], title: "系统管理"},

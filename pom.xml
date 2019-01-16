@@ -9,11 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.unissoft</groupId>
-    <artifactId>test</artifactId>
+    <artifactId>big-data-intelligent-analytics</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>test</name>
-    <description>Demo project for Spring Boot</description>
+    <name>BDIA</name>
+    <description>big-data-intelligent-analytics</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,6 +47,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,7 +76,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -147,6 +154,7 @@
     </dependencies>
 
     <build>
+        <finalName>BDIA</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -169,6 +177,7 @@
                 <executions>
                     <execution>
                         <id>Generate MyBatis Artifacts</id>
+                        <phase>deploy</phase>
                         <goals>
                             <goal>generate</goal>
                         </goals>

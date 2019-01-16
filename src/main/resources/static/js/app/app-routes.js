@@ -34,5 +34,13 @@ define(function (require) {
                 controllerUrl: 'app/CFFX/CFFX',
                 controller: 'CFFXController'
             })
+            .state('index.XSMX', {
+                url: '/XSMX',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'XSMX/list.html';
+                },
+                controllerUrl: 'app/XSMX/XSMX',
+                controller: 'XSMXController'
+            })
     }]);
 });

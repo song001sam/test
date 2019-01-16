@@ -8,6 +8,10 @@ import org.apache.commons.math3.stat.descriptive.moment.*;
 import org.springframework.stereotype.Service;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 //import org.apache.commons.math3.stat.
 @Service
 public class MathServiceImpl implements MathService {
@@ -43,9 +47,17 @@ public class MathServiceImpl implements MathService {
     @Override
     public double[][] getPearsonsCorrelation(double[][] arr) {
         PearsonsCorrelation pc = new PearsonsCorrelation(arr);
-        System.out.println(pc.getCorrelationPValues());
+//        System.out.println(pc.getCorrelationPValues());
 
         return pc.getCorrelationMatrix().getData();
+    }
+
+    @Override
+    public double[][] getPearsonsCorrelationPValue(double[][] arr) {
+        PearsonsCorrelation pc = new PearsonsCorrelation(arr);
+//        System.out.println(pc.getCorrelationPValues());
+
+        return pc.getCorrelationPValues().getData();
     }
 
 }
