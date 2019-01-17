@@ -7,7 +7,13 @@ define(['echarts',
         $scope.totalItems = 64;
         $scope.currentPage = 1;
         $scope.isshow = false;
-        $scope.isshowcharts = false;
+        // $scope.isshowcharts = false;
+        $scope.isshowbutton = false;
+        $scope.mx;
+        $scope.dt1 = new Date();
+        $scope.dt2 = new Date();
+        $scope.tableHead = "屈服强度";
+        $scope.echarts4 = ec.init(document.getElementById('echarts4'))
         // $scope.select1 = "C";
         $scope.open2 = function () {
             $scope.popup2.opened = true;
@@ -27,6 +33,7 @@ define(['echarts',
             isopen: false
         };
         $scope.loadData = function () {
+            $scope.isshowbutton = true;
             $http({
                 method: "GET",
                 url: "Tjfx/listPage/" + $scope.selectGT + "/" + $scope.currentPage + "/5"
@@ -43,6 +50,161 @@ define(['echarts',
         $scope.clickChange = function () {
             $scope.isshow = !$scope.isshow
             $scope.isshowcharts = !$scope.isshowcharts
+            console.info($scope.echarts4.getOption());
+            if ($scope.echarts4.getOption() == undefined || $scope.echarts4.getOption().series.length == 0) {
+
+                console.info("setOption");
+                $scope.echarts4.setOption({
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {},
+                            restore: {},
+                            magicType: {
+                                type: ['line', 'bar']
+                            }
+                        }
+                    },
+                    legend: {},
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        show: false,
+                        type: 'category',
+                        data: function () {
+                            var list = [];
+                            for (var i = 1; i <= $scope.gtmx.length; i++) {
+                                list.push(i)
+                            }
+                            return list;
+                        }()
+                    },
+                    yAxis: [{
+                        type: 'value',
+                        name: '强度',
+                        axisLabel: {
+                            formatter: '{value} MPa'
+                        }
+                    }],
+                    series: [
+
+                        {
+                            name: function () {
+                                switch ($scope.mx) {
+                                    case 'l_Rel':
+                                        return '屈服强度'
+                                    case 'nl_Rel':
+                                        return '屈服强度'
+                                    case 'l_Rm':
+                                        return '抗拉强度'
+                                    case 'nl_Rm':
+                                        return '抗拉强度'
+                                }
+                            }(),
+                            type: 'line',
+                            yAxisIndex: 0,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: function () {
+                                var list = [];
+                                for (var i = 0; i < $scope.gtmx.length; i++) {
+                                    switch ($scope.mx) {
+                                        case 'l_Rel':
+                                            list.push($scope.gtmx[i].rel)
+                                            break;
+                                        case 'nl_Rel':
+                                            list.push($scope.gtmx[i].rel)
+                                            break;
+                                        case 'l_Rm':
+                                            list.push($scope.gtmx[i].rm)
+                                            break;
+                                        case 'nl_Rm':
+                                            list.push($scope.gtmx[i].rm)
+                                            break;
+                                    }
+                                }
+                                console.info(list)
+                                return list;
+                            }()
+                        }
+                        ,
+                        {
+                            name: function () {
+                                switch ($scope.mx) {
+                                    case 'l_Rel':
+                                        return '模型屈服强度'
+                                    case 'nl_Rel':
+                                        return '模型屈服强度'
+                                    case 'l_Rm':
+                                        return '模型抗拉强度'
+                                    case 'nl_Rm':
+                                        return '模型抗拉强度'
+                                }
+                            }(),
+                            type: 'line',
+                            yAxisIndex: 0,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'insideRight'
+                                }
+                            },
+                            data: function () {
+                                var list = [];
+                                for (var i = 0; i < $scope.gtmx.length; i++) {
+                                    switch ($scope.mx) {
+                                        case 'l_Rel':
+                                            list.push($scope.gtmx[i].l_Rel)
+                                            break;
+                                        case 'nl_Rel':
+                                            list.push($scope.gtmx[i].nl_Rel)
+                                            break;
+                                        case 'l_Rm':
+                                            list.push($scope.gtmx[i].l_Rm)
+                                            break;
+                                        case 'nl_Rm':
+                                            list.push($scope.gtmx[i].nl_Rm)
+                                            break;
+                                    }
+                                }
+                                console.info(list);
+                                return list;
+                            }(),
+                        }
+                    ]
+                    ,
+                    dataZoom: [
+                        {
+                            type: 'slider',
+                            show: true,
+                            start: 0,
+                            end: 10,
+                            handleSize: 10
+                        },
+                        {
+                            type: 'inside',
+                            start: 0,
+                            end: 10
+                        }
+                    ]
+                });
+            } else {
+                console.info("cleanOption");
+                $scope.echarts4.clear();
+            }
         };
         // var data = [];
         // for (var i = 1; i <= 30; i++) {
@@ -74,7 +236,7 @@ define(['echarts',
                         min: 0
                     };
                     angular.forEach($scope.gt, function (item, index) {//找到选中的元素的分割线
-                        console.info($scope.select1)
+                        // console.info($scope.select1)
                         if (item.code == $scope.select1.code) {
                             $scope.gtmin = item.value1;
                             $scope.gtmax = item.value2;
@@ -260,45 +422,45 @@ define(['echarts',
             }, function () {
 
             });
-            ec.init(document.getElementById('echarts1')).setOption({
-
-                yAxis: {
-                    type: 'value',
-                },
-                xAxis: {
-                    type: 'category',
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i <= 30; i++) {
-                            list.push('11月' + i + '日');
-                        }
-                        return list;
-                    }()
-                },
-                series: {
-                    type: 'bar',
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i <= 30; i++) {
-                            list.push(Math.ceil(Math.random() * 300) + 1);
-                        }
-                        return list;
-                    }(),
-                    itemStyle: {
-                        normal: {
-                            //颜色渐变
-                            color: new ec.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#5A91E1'
-                            }, {
-                                offset: 1,
-                                color: '#5DB6F3'
-                            }])
-                        }
-                    }
-                }
-
-            });
+            // ec.init(document.getElementById('echarts1')).setOption({
+            //
+            //     yAxis: {
+            //         type: 'value',
+            //     },
+            //     xAxis: {
+            //         type: 'category',
+            //         data: function () {
+            //             var list = [];
+            //             for (var i = 1; i <= 30; i++) {
+            //                 list.push('11月' + i + '日');
+            //             }
+            //             return list;
+            //         }()
+            //     },
+            //     series: {
+            //         type: 'bar',
+            //         data: function () {
+            //             var list = [];
+            //             for (var i = 1; i <= 30; i++) {
+            //                 list.push(Math.ceil(Math.random() * 300) + 1);
+            //             }
+            //             return list;
+            //         }(),
+            //         itemStyle: {
+            //             normal: {
+            //                 //颜色渐变
+            //                 color: new ec.graphic.LinearGradient(0, 0, 0, 1, [{
+            //                     offset: 0,
+            //                     color: '#5A91E1'
+            //                 }, {
+            //                     offset: 1,
+            //                     color: '#5DB6F3'
+            //                 }])
+            //             }
+            //         }
+            //     }
+            //
+            // });
 
             // var echarts2 = ec.init(document.getElementById('echarts2'));
 
@@ -446,232 +608,8 @@ define(['echarts',
                 data: ['<' + $scope.gtmin, $scope.gtmin + '~' + $scope.gtmax, '>' + $scope.gtmax]
             }
             echarts2.setOption(option);
-        }
+        };
 
-        ec.init(document.getElementById('echarts4')).setOption({
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                }
-            },
-            legend: {
-                data: ['C', 'Si', 'Mn', 'P', 'S', 'Cr', 'Ni', 'Cu', '屈服强度']
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                data: function () {
-                    var list = [];
-                    for (var i = 1; i < 1300; i++) {
-                        list.push(i);
-                    }
-                    return list;
-                }()
-            },
-            yAxis: [{
-                type: 'value',
-                name: '百分比',
-                // min:'0'
-                // max:
-                axisLabel: {
-                    formatter: '{value} %'
-                }
-
-            }, {
-                type: 'value',
-                name: '强度',
-                axisLabel: {
-                    formatter: '{value} MPa'
-                }
-            }],
-            series: [
-                {
-                    name: 'C',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                },
-                {
-                    name: 'Si',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                },
-                {
-                    name: 'Mn',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                },
-                {
-                    name: 'P',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                },
-                {
-                    name: 'S',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                },
-                {
-                    name: 'Cr',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                }
-                ,
-                {
-                    name: 'Ni',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                }
-                ,
-                {
-                    name: 'Cu',
-                    type: 'bar',
-                    stack: '总量',
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.random() * 0.4);
-                        }
-                        return list;
-                    }()
-                },
-                {
-                    name: '屈服强度',
-                    type: 'line',
-                    yAxisIndex: 1,
-                    label: {
-                        normal: {
-                            show: false,
-                            position: 'insideRight'
-                        }
-                    },
-                    data: function () {
-                        var list = [];
-                        for (var i = 1; i < 1300; i++) {
-                            list.push(Math.ceil(Math.random() * 50) + 350);
-                        }
-                        return list;
-                    }()
-                }
-            ],
-            dataZoom: [
-                {
-                    type: 'slider',
-                    show: true,
-                    start: 94,
-                    end: 100,
-                    handleSize: 8,
-                    maxValueSpan: 200
-                },
-                {
-                    type: 'inside',
-                    start: 94,
-                    end: 100
-                }
-            ]
-        });
         $scope.page = function () {
             $http({
                 method: "GET",
@@ -683,7 +621,18 @@ define(['echarts',
             });
         }
         $scope.mxChange = function () {
-
+            $scope.currentPage = 1;
+            $scope.isshowbutton = false;
+            $scope.isshowcharts = false;
+            $scope.echarts4.clear();
+            $scope.tableHead = "屈服强度";
+            if ($scope.mx) {
+                if ($scope.mx.indexOf('Rel') != -1) {
+                    $scope.tableHead = "屈服强度";
+                } else {
+                    $scope.tableHead = "抗拉强度";
+                }
+            }
         }
     });
 

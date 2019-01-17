@@ -33,10 +33,18 @@ CREATE TABLE `t_gt_1` (
   `Rel` decimal(10,5) DEFAULT NULL,
   `Rm` decimal(10,5) DEFAULT NULL,
   `A` decimal(10,5) DEFAULT NULL,
-  `Z` decimal(10,5) DEFAULT NULL
+  `Z` decimal(10,5) DEFAULT NULL,
+    `L_Rel` decimal(10,5) DEFAULT NULL,
+  `L_Rm` decimal(10,5) DEFAULT NULL,
+  `L_A` decimal(10,5) DEFAULT NULL,
+  `L_Z` decimal(10,5) DEFAULT NULL,
+    `NL_Rel` decimal(10,5) DEFAULT NULL,
+  `NL_Rm` decimal(10,5) DEFAULT NULL,
+  `NL_A` decimal(10,5) DEFAULT NULL,
+  `NL_Z` decimal(10,5) DEFAULT NULL
 );
 set global local_infile = 'ON';
-load data local infile '/Users/songshaochen/IdeaProjects/test/doc/data40crNohead.txt' into table t_gt_1;
+load data local infile '/Users/songshaochen/Documents/中冶京诚/data40crNohead-new.csv' into table t_gt_1 fields terminated by',';
 
 CREATE TABLE `t_gt_0` (
   `C` decimal(10,5) DEFAULT NULL,
@@ -50,7 +58,15 @@ CREATE TABLE `t_gt_0` (
   `Rel` decimal(10,5) DEFAULT NULL,
   `Rm` decimal(10,5) DEFAULT NULL,
   `A` decimal(10,5) DEFAULT NULL,
-  `Z` decimal(10,5) DEFAULT NULL
+  `Z` decimal(10,5) DEFAULT NULL,
+    `L_Rel` decimal(10,5) DEFAULT NULL,
+  `L_Rm` decimal(10,5) DEFAULT NULL,
+  `L_A` decimal(10,5) DEFAULT NULL,
+  `L_Z` decimal(10,5) DEFAULT NULL,
+    `NL_Rel` decimal(10,5) DEFAULT NULL,
+  `NL_Rm` decimal(10,5) DEFAULT NULL,
+  `NL_A` decimal(10,5) DEFAULT NULL,
+  `NL_Z` decimal(10,5) DEFAULT NULL
 );
 set global local_infile = 'ON';
-load data local infile '/Users/songshaochen/IdeaProjects/test/doc/data45Nohead.txt' into table t_gt_0;
+load data local infile '/Users/songshaochen/Documents/中冶京诚/data45Nohead-new.csv' into table t_gt_0 fields terminated by',';

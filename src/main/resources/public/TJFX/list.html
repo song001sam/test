@@ -69,15 +69,15 @@
     <div class="row">
         <div class="col-lg-2"> 模型分析</div>
         <div class="col-lg-4">
-            <select ng-change="mxChange();" ng-model="mx">
-                <option value="45钢-屈服强度线性模型">45钢-屈服强度线性模型</option>
-                <option value="45钢-屈服强度非线性模型">45钢-屈服强度非线性模型</option>
-                <option value="45钢-抗拉强度线性模型">45钢-抗拉强度线性模型</option>
-                <option value="45钢-抗拉强度非线性模型">45钢-抗拉强度非线性模型</option>
-                <option value="40Cr钢-屈服强度线性模型">40Cr钢-屈服强度线性模型</option>
-                <option value="40Cr钢-屈服强度非线性模型">40Cr钢-屈服强度非线性模型</option>
-                <option value="40Cr钢-抗拉强度线性模型">40Cr钢-抗拉强度线性模型</option>
-                <option value="40Cr钢-抗拉强度非线性模型">40Cr钢-抗拉强度非线性模型</option>
+            <select ng-change="mxChange();" ng-init="mx = 'l_Rel'" ng-model="mx">
+                <option ng-if="selectGT =='0'" value="l_Rel">45钢-屈服强度线性模型</option>
+                <option ng-if="selectGT == '0'" value="nl_Rel">45钢-屈服强度非线性模型</option>
+                <option ng-if="selectGT == '0'" value="l_Rm">45钢-抗拉强度线性模型</option>
+                <option ng-if="selectGT == '0'" value="nl_Rm">45钢-抗拉强度非线性模型</option>
+                <option ng-if="selectGT == '1'" value="l_Rel">40Cr钢-屈服强度线性模型</option>
+                <option ng-if="selectGT == '1'" value="nl_Rel">40Cr钢-屈服强度非线性模型</option>
+                <option ng-if="selectGT == '1'" value="l_Rm">40Cr钢-抗拉强度线性模型</option>
+                <option ng-if="selectGT == '1'" value="nl_Rm">40Cr钢-抗拉强度非线性模型</option>
                 <!--<option value="GCr15钢-屈服强度线性模型">GCr15钢-屈服强度线性模型</option>-->
                 <!--<option value="GCr15钢-屈服强度非线性模型">GCr15钢-屈服强度非线性模型</option>-->
                 <!--<option value="GCr15钢-抗拉强度线性模型">GCr15钢-抗拉强度线性模型</option>-->
@@ -88,7 +88,8 @@
             <button class="btn btn-primary input-sm" ng-click="loadData();" type="button">数据加载</button>
         </div>
         <div class="col-lg-4 ">
-            <button class="btn btn-primary input-sm pull-right" ng-show="false" ng-click="clickChange();" type="button">
+            <button class="btn btn-primary input-sm pull-right" ng-click="clickChange();" ng-show="isshowbutton"
+                    type="button">
                 切换图表
             </button>
         </div>
@@ -100,7 +101,7 @@
             <tr>
                 <th>序号</th>
                 <th>钢种名称</th>
-                <th>数据时间</th>
+                <!--<th>数据时间</th>-->
                 <th>C</th>
                 <th>Si</th>
                 <th>Mn</th>
@@ -109,14 +110,15 @@
                 <th>Cr</th>
                 <th>Ni</th>
                 <th>Cu</th>
-                <th>屈服强度</th>
+                <th>实际{{tableHead}}</th>
+                <th>模型{{tableHead}}</th>
             </tr>
             </thead>
             <tbody ng-repeat="model in list">
             <tr>
                 <td>{{$index}}</td>
-                <td ng-if="selectGT = '0'">40钢</td>
-                <td ng-if="selectGT = '1'">40Cr钢</td>
+                <td ng-if="selectGT == '0'">45钢</td>
+                <td ng-if="selectGT == '1'">40Cr钢</td>
                 <td>{{model.c}}</td>
                 <td>{{model.si}}</td>
                 <td>{{model.mn}}</td>
@@ -125,16 +127,26 @@
                 <td>{{model.cr}}</td>
                 <td>{{model.ni}}</td>
                 <td>{{model.cu}}</td>
-                <td>{{model.rel}}</td>
+                <td ng-if="mx=='l_Rel'">{{model.rel}}</td>
+                <td ng-if="mx=='l_Rel'">{{model.l_Rel}}</td>
+                <td ng-if="mx=='nl_Rel'">{{model.rel}}</td>
+                <td ng-if="mx=='nl_Rel'">{{model.nl_Rel}}</td>
+                <td ng-if="mx=='l_Rm'">{{model.rm}}</td>
+                <td ng-if="mx=='l_Rm'">{{model.l_Rm}}</td>
+                <td ng-if="mx=='nl_Rm'">{{model.rm}}</td>
+                <td ng-if="mx=='nl_Rm'">{{model.nl_Rm}}</td>
+
             </tr>
             </tbody>
         </table>
-        <div class="col-lg-12" id="echarts4" ng-show="isshowcharts" style="height: 400px"></div>
-    </div>
-    <div class="pull-right" ng-show="isshow">
+
+
+        <div class="pull-right" ng-show="isshow">
         <ul boundary-links="true" class="pagination-sm" first-text="&laquo;" last-text="&raquo;" ng-change="page()"
             next-text="&rsaquo;" max-size="10" ng-model="currentPage" previous-text="&lsaquo;" total-items="totalItems"
             items-per-page="5"
             uib-pagination></ul>
     </div>
+    </div>
+    <div class="col-lg-12" id="echarts4" style="height: 400px"></div>
 </div>
