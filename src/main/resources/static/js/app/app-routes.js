@@ -42,5 +42,13 @@ define(function (require) {
                 controllerUrl: 'app/XSMX/XSMX',
                 controller: 'XSMXController'
             })
+            .state('index.a', {
+                url: '/a',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'a.html';
+                },
+                controllerUrl: 'app/a',
+                controller: 'aController'
+            })
     }]);
 });

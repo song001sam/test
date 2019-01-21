@@ -27,14 +27,8 @@ define(function (require) {
                     url: "index.XSMX"
                 }], title: "智能分析"
             },
-            {list: [{content: "123", url: "a"}, {content: "456", url: "b({id:'aa'})"}], title: "系统管理"},
+            {list: [{content: "用户管理", url: "index.a"}, {content: "系统设置", url: "b({id:'aa'})"}], title: "系统管理"},
         ]
 
-    }).controller("aController", function ($scope, $route) {
-        $scope.hello = "hello,a!";
     })
-        .controller("bController", function ($scope, $route, $stateParams) {
-            alert($stateParams.id);
-            $scope.hello = "hello,b!";
-        });
 });
