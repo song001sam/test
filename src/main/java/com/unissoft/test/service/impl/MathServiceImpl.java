@@ -48,7 +48,6 @@ public class MathServiceImpl implements MathService {
     public double[][] getPearsonsCorrelation(double[][] arr) {
         PearsonsCorrelation pc = new PearsonsCorrelation(arr);
 //        System.out.println(pc.getCorrelationPValues());
-
         return pc.getCorrelationMatrix().getData();
     }
 
