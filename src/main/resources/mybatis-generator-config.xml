@@ -48,16 +48,18 @@
         <!--<table tableName="t_Sys_Permission" enableCountByExample="false" enableDeleteByExample="false"-->
         <!--enableSelectByExample="false"-->
         <!--enableUpdateByExample="false"/>-->
-        <table tableName="t_GT_0" enableCountByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false"
-               enableUpdateByExample="false"/>
-        <!--<table tableName="t_GT_1" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--<table tableName="t_GT_0" enableCountByExample="false" enableDeleteByExample="false"-->
+        <!--enableSelectByExample="false"-->
+        <!--enableUpdateByExample="false"/>-->
+        <!--<table tableName="t_GT_1" enableCountByExample="false" enableDeleteByExample="false"&ndash;&gt;-->
         <!--enableSelectByExample="false"-->
         <!--enableUpdateByExample="false"/>-->
         <!--<table tableName="ts_gthl" enableCountByExample="false" enableDeleteByExample="false"-->
         <!--enableSelectByExample="false"-->
         <!--enableUpdateByExample="false"/>-->
-
+        <table tableName="AI_LG_LD_ORC" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"/>
     </context>
 
 </generatorConfiguration>

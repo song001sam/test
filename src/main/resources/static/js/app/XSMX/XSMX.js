@@ -10,6 +10,8 @@ define(['echarts',
         $scope.selectGT = "t_gt_0";
         $scope.show = false;
         $scope.result = {};
+        $scope.xxList = [];
+        $scope.yyList = [];
 
         $scope.checkColName = function (index) {
             console.info($scope.CF.checkbox[index]);
@@ -19,32 +21,32 @@ define(['echarts',
             return i;
         }
         $scope.selectChange = function () {
-            $http({
-                url: "XSMX/colName/" + $scope.selectGT,
-                method: "GET"
-            }).then(function (res) {
-                console.info(res.data);
-                $scope.check = res.data;
-                $scope.CF = {checkbox: []};
-                angular.forEach($scope.check, function () {
-                    $scope.CF.checkbox.push(false);
-                })
-            }, function () {
-
-            });
+            // $http({
+            //     url: "XSMX/colName/" + $scope.selectGT,
+            //     method: "GET"
+            // }).then(function (res) {
+            //     console.info(res.data);
+            //     $scope.check = res.data;
+            //     $scope.CF = {checkbox: []};
+            //     angular.forEach($scope.check, function () {
+            //         $scope.CF.checkbox.push(false);
+            //     })
+            // }, function () {
+            //
+            // });
         }
         $scope.sub = function () {
             console.info($scope.CF);
 
-            if ($scope.CF.checkbox.filter($scope.filter1).length <= 1) {
-                $uibModal.open({
-                    animation: true,
-                    size: "sm",
-                    template: "<div class=\"modal-dialog\">请选择2个以上</div><button class='btn-info btn'ng-click='$close()'>关闭</button>",
-                    backdrop: "static"
-                });
-                return;
-            }
+            // if ($scope.CF.checkbox.filter($scope.filter1).length <= 1) {
+            //     $uibModal.open({
+            //         animation: true,
+            //         size: "sm",
+            //         template: "<div class=\"modal-dialog\">请选择2个以上</div><button class='btn-info btn'ng-click='$close()'>关闭</button>",
+            //         backdrop: "static"
+            //     });
+            //     return;
+            // }
             var instance = $uibModal.open({
                 animation: true,
                 size: "sm",
@@ -55,15 +57,17 @@ define(['echarts',
                 url: "XSMX/jisuan",
                 method: "POST",
                 data: {
-                    colNames: function () {
-                        var list = [];
-                        angular.forEach($scope.CF.checkbox, function (item, index, t) {
-                            if (item) {
-                                list.push(item);
-                            }
-                        });
-                        return list;
-                    }(), tableName: $scope.selectGT
+                    // colNames:
+                    //     function () {
+                    //     var list = [];
+                    //     angular.forEach($scope.CF.checkbox, function (item, index, t) {
+                    //         if (item) {
+                    //             list.push(item);
+                    //         }
+                    //     });
+                    //     return list;
+                    // }(),
+                    tableName: $scope.selectGT
                 }
             }).then(function (res) {
                 $scope.result = res.data;

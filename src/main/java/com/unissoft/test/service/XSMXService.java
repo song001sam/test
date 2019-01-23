@@ -7,4 +7,6 @@ public interface XSMXService {
     Map<String, Object> jisuan(Map<String, Object> map);
 
     List<String> selectColName(String tableName);
+
+    Map<String, String> selectColNameAndComment(String tableName);
 }

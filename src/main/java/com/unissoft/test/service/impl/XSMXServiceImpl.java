@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,10 +36,10 @@ public class XSMXServiceImpl implements XSMXService {
 
                             });
                 });
-
+        Map<String, String> colToComment = this.selectColNameAndComment(map.get("tableName").toString());
         doubleMap.forEach((key, value) -> {
-            resultMap.put(key + "-Deviation", mathService.getStandardDeviation(MathUtils.toPrimitive(value.toArray())));
-            resultMap.put(key + "-Variance", mathService.getVariance(MathUtils.toPrimitive(value.toArray())));
+            resultMap.put(colToComment.get(key) + "-Deviation", mathService.getStandardDeviation(MathUtils.toPrimitive(value.toArray())));
+            resultMap.put(colToComment.get(key) + "-Variance", mathService.getVariance(MathUtils.toPrimitive(value.toArray())));
 
         });
         double[][] result = new double[list.size()][colList.size()];
@@ -58,4 +57,13 @@ public class XSMXServiceImpl implements XSMXService {
         return xsmxMapper.selectColName(tableName).stream().map(x -> x.get("COLUMN_NAME")).collect(Collectors.toList());
     }
 
+    @Cacheable(cacheNames = "selectColNameAndComment", key = "#tableName")
+    @Override
+    public Map<String, String> selectColNameAndComment(String tableName) {
+        final Map<String, String> result = new HashMap<>();
+        xsmxMapper.selectColName(tableName).stream().forEach(x -> {
+            result.put(x.get("COLUMN_NAME"), x.get("COLUMN_COMMENT"));
+        });
+        return result;
+    }
 }

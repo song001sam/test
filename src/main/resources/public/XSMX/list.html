@@ -4,18 +4,20 @@
     </h1>
     <div class="row">
         <div class="col-lg-6">
-            <select class="form-control" ng-change="selectChange();" ng-init="selectGT = 't_gt_0'" ng-model="selectGT">
-                <option value="t_gt_0">45钢检化验</option>
-                <option value="t_gt_1">40Cr钢检化验</option>
-                <option value="t_L1_LG_CCM">L1连铸</option>
-                <option value="t_L1_LG_BOF">L1转炉</option>
-                <option value="t_L2_LD_RTDB_LOG_ADDITIONS">转炉加料信息</option>
-                <option value="t_L1_LG_LF">LF精炼</option>
-                <option value="t_L2_LF_HEATSSLGANA">LF钢渣成分</option>
-                <option value="t_L2_LF_LSTCHRGDMAT">LF加料信息</option>
-                <option value="t_L2_RH_HEATSGENINFO">RH炉次信息</option>
-                <option value="t_L2_RH_HEATSCHRGDMAT">RH加料信息</option>
-                <option value="t_L2_RH_HEATSSTLANA">RH钢水成分</option>
+            <select class="form-control" ng-change="selectChange();" ng-init="selectGT = 'AiLgLdOrc'"
+                    ng-model="selectGT">
+                <!--<option value="t_gt_0">45钢检化验</option>-->
+                <!--<option value="t_gt_1">40Cr钢检化验</option>-->
+                <!--<option value="t_L1_LG_CCM">L1连铸</option>-->
+                <!--<option value="t_L1_LG_BOF">L1转炉</option>-->
+                <!--<option value="t_L2_LD_RTDB_LOG_ADDITIONS">转炉加料信息</option>-->
+                <!--<option value="t_L1_LG_LF">LF精炼</option>-->
+                <!--<option value="t_L2_LF_HEATSSLGANA">LF钢渣成分</option>-->
+                <!--<option value="t_L2_LF_LSTCHRGDMAT">LF加料信息</option>-->
+                <!--<option value="t_L2_RH_HEATSGENINFO">RH炉次信息</option>-->
+                <!--<option value="t_L2_RH_HEATSCHRGDMAT">RH加料信息</option>-->
+                <!--<option value="t_L2_RH_HEATSSTLANA">RH钢水成分</option>-->
+                <option value="AI_LG_LD_ORC">45钢转炉</option>
             </select>
         </div>
         <div class="col-lg-3">
@@ -24,12 +26,12 @@
         <div class="col-lg-3"></div>
     </div>
     <h5 class="page-header"></h5>
-    <div class="row">
-        <div class="col-lg-3" ng-repeat="x in check">
-            <input ng-false-value="" ng-model="CF.checkbox[$index]" ng-true-value="'{{check[$index]}}'" type="checkbox">
-            <span>{{x}}</span>
-        </div>
-    </div>
+    <!--<div class="row">-->
+    <!--<div class="col-lg-3" ng-repeat="x in check">-->
+    <!--<input ng-false-value="" ng-model="CF.checkbox[$index]" ng-true-value="'{{check[$index]}}'" type="checkbox">-->
+    <!--<span>{{x}}</span>-->
+    <!--</div>-->
+    <!--</div>-->
     <div ng-show="show">
         <div class="col-lg-6 text-center">
             <div class="row text-center" ng-if="key != 'Correlation'&&key != 'PValue'&&key.indexOf('Variance')!=-1"
@@ -45,19 +47,22 @@
         </div>
         <div class="col-lg-12 row">
             <table class="table-striped table-bordered table-hover table"
-                   style="word-break:break-all; word-wrap:break-all;">
+                   style="word-break:break-all; word-wrap:break-all; border:1px solid #ddd;">
                 <thead>
                 <tr>
                     <th>相关性</th>
-                    <th ng-if="xx" ng-repeat="xx in CF.checkbox track by $index">{{CF.checkbox[$index]}}</th>
+                    <th ng-if="xx.indexOf('out_')!=-1" ng-init="xxList.push($index);" ng-repeat="xx in result.colNames">
+                        {{result.colNameToComment[xx]}}
+                    </th>
                 </tr>
                 </thead>
-                <tbody ng-init="outerIndex = $index;" ng-repeat="arr in result.Correlation">
-                <tr>
+                <tbody ng-init="outerIndex = $index;" ng-repeat="yy in result.colNames">
+                <tr ng-if="yy.indexOf('out_')==-1" ng-init="yyList.push($index)">
 
-                    <td>{{CF.checkbox.filter(filter1)[ outerIndex ]}}</td>
+                    <td>{{result.colNameToComment[yy]}}</td>
                     <td ng-class="{'bg-success':result.Correlation[outerIndex][$index]>0.8||result.Correlation[outerIndex][$index]<-0.8}"
-                        ng-repeat="ar in arr">{{result.Correlation[outerIndex][$index]}}
+                        ng-if="xxList.indexOf(outerIndex)==-1&&yyList.indexOf($index)==-1"
+                        ng-repeat="zz in result.colNames">{{result.Correlation[outerIndex][$index]}}
                     </td>
                 </tr>
                 </tbody>
@@ -65,19 +70,22 @@
         </div>
         <div class="col-lg-12 row">
             <table class="table-striped table-bordered table-hover table"
-                   style="word-break:break-all; word-wrap:break-all;">
+                   style="word-break:break-all; word-wrap:break-all; border:1px solid #ddd;">
                 <thead>
                 <tr>
                     <th>检验值</th>
-                    <th ng-if="xx" ng-repeat="xx in CF.checkbox track by $index">{{CF.checkbox[$index]}}</th>
+                    <th ng-if="xx.indexOf('out_')!=-1" ng-init="xxList.push($index);" ng-repeat="xx in result.colNames">
+                        {{result.colNameToComment[xx]}}
+                    </th>
                 </tr>
                 </thead>
-                <tbody ng-init="outerIndex = $index;" ng-repeat="arr in result.PValue">
-                <tr>
+                <tbody ng-init="outerIndex = $index;" ng-repeat="yy in result.colNames">
+                <tr ng-if="yy.indexOf('out_')==-1" ng-init="yyList.push($index)">
 
-                    <td>{{CF.checkbox.filter(filter1)[ outerIndex ]}}</td>
-                    <td ng-class="{'bg-success':result.PValue[outerIndex][$index]<0.05&&result.PValue[outerIndex][$index]>-0.05}"
-                        ng-repeat="arr in result.PValue">{{result.PValue[outerIndex][$index]}}
+                    <td>{{result.colNameToComment[yy]}}</td>
+                    <td ng-class="{'bg-success':result.PValue[outerIndex][$index]<0.05&&result.PValue[outerIndex][$index]>-0.05"
+                        ng-if="xxList.indexOf(outerIndex)==-1&&yyList.indexOf($index)==-1"
+                        ng-repeat="zz in result.colNames">{{result.PValue[outerIndex][$index]}}
                     </td>
                 </tr>
                 </tbody>
