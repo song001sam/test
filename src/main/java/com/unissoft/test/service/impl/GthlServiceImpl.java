@@ -1,7 +1,7 @@
 package com.unissoft.test.service.impl;
 
 import com.unissoft.test.entity.TsGthl;
-import com.unissoft.test.mapper.TsGthlMapper;
+import com.unissoft.test.mapper.mysql.TsGthlMapper;
 import com.unissoft.test.service.GthlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -14,11 +14,6 @@ public class IndexController {
     @Autowired
     UserService service;
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String jumpIndex() {
-        System.out.println(service.getUserByName("admin"));
-        return "a.html";
-    }
 
     //Spring Security see this :
     @RequestMapping(value = "/login", method = RequestMethod.GET)

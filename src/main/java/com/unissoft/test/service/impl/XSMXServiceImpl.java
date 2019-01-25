@@ -1,6 +1,6 @@
 package com.unissoft.test.service.impl;
 
-import com.unissoft.test.mapper.XSMXMapper;
+import com.unissoft.test.mapper.inceptor.XSMXMapper;
 import com.unissoft.test.service.MathService;
 import com.unissoft.test.service.XSMXService;
 import com.unissoft.test.utils.MathUtils;
@@ -36,7 +36,7 @@ public class XSMXServiceImpl implements XSMXService {
 
                             });
                 });
-        Map<String, String> colToComment = this.selectColNameAndComment(map.get("tableName").toString());
+        Map<String, String> colToComment = this.selectColNameAndComment(map.get("tableName").toString().toLowerCase());
         doubleMap.forEach((key, value) -> {
             resultMap.put(colToComment.get(key) + "-Deviation", mathService.getStandardDeviation(MathUtils.toPrimitive(value.toArray())));
             resultMap.put(colToComment.get(key) + "-Variance", mathService.getVariance(MathUtils.toPrimitive(value.toArray())));
@@ -54,15 +54,18 @@ public class XSMXServiceImpl implements XSMXService {
     @Cacheable(cacheNames = "selectColName", key = "#tableName")
     @Override
     public List<String> selectColName(String tableName) {
-        return xsmxMapper.selectColName(tableName).stream().map(x -> x.get("COLUMN_NAME")).collect(Collectors.toList());
+        return xsmxMapper.selectColName(tableName).stream().map(x -> x.get("column_name")).collect(Collectors.toList());
     }
 
     @Cacheable(cacheNames = "selectColNameAndComment", key = "#tableName")
     @Override
     public Map<String, String> selectColNameAndComment(String tableName) {
         final Map<String, String> result = new HashMap<>();
+//        xsmxMapper.selectColName(tableName).stream().forEach(x -> {
+//            result.put(x.get("COLUMN_NAME"), x.get("COLUMN_COMMENT"));
+//        });
         xsmxMapper.selectColName(tableName).stream().forEach(x -> {
-            result.put(x.get("COLUMN_NAME"), x.get("COLUMN_COMMENT"));
+            result.put(x.get("column_name"), x.get("commentstring"));
         });
         return result;
     }

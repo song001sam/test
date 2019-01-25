@@ -1,7 +1,7 @@
 package com.unissoft.test.service.impl;
 
 import com.unissoft.test.entity.SysUser;
-import com.unissoft.test.mapper.TSysUserMapper;
+import com.unissoft.test.mapper.mysql.TSysUserMapper;
 import com.unissoft.test.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

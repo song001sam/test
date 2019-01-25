@@ -17,13 +17,13 @@ public class XSMXController {
 
     @RequestMapping(value = "/XSMX/jisuan", method = RequestMethod.POST)
     public Map<String, Object> jisuan(@RequestBody Map<String, Object> map) {
-        List<String> colName = service.selectColName(map.get("tableName").toString());
+        List<String> colName = service.selectColName(map.get("tableName").toString().toLowerCase());
         colName = colName.stream().filter(x -> x.startsWith("in_") || x.startsWith("out_") || x.startsWith("pro_")).collect(Collectors.toList());
 //        System.out.println(colName);
         map.put("colNames", colName);
         Map result = service.jisuan(map);
         result.put("colNames", colName);
-        result.put("colNameToComment", service.selectColNameAndComment(map.get("tableName").toString()));
+        result.put("colNameToComment", service.selectColNameAndComment(map.get("tableName").toString().toLowerCase()));
         return result;
     }
 

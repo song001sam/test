@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unissoft.test.mapper.inceptor.XSMXMapper">
+    <select id="selectList" resultType="java.util.HashMap">
+        select
+        <foreach collection="colNames" item="colName" separator=",">
+            ${colName}
+        </foreach>
+        from ${tableName}
+    </select>
+    <select id="selectColName" resultType="java.util.HashMap">
+
+      SELECT * FROM columns_v WHERE database_name = 'bdia' AND table_name = #{tableName};
+
+    </select>
+</mapper>

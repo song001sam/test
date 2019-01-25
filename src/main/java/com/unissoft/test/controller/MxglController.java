@@ -4,9 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.unissoft.test.entity.TMxglModel;
 import com.unissoft.test.service.MxglService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+
 public class MxglController {
     @Autowired
     MxglService service;
