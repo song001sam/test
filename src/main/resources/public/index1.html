@@ -26,17 +26,31 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar " style="padding:2px">
+        <div class="col-lg-2 sidebar " style="padding:2px">
 
-            <uib-accordion close-others="true">
-                <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in groups">
-                    <div ng-repeat="g in group.list">
-                        <a class="glyphicon glyphicon-check" style="padding:5px" ui-sref="{{g.url}}">{{g.content}}</a>
+            <uib-accordion close-others="false">
+                <div uib-accordion-group class="panel-default"  ng-repeat="group in groups">
+                    <uib-accordion-heading >
+                        <h4 style="margin-top: 0;  margin-bottom: 0;   color: inherit;">{{group.content}}</h4>
+                    </uib-accordion-heading>
+                    <div ng-repeat="g in group.contentList" >
+                        <uib-accordion close-others="true">
+                            <div uib-accordion-group is-open="status.open[$index]">
+                                <uib-accordion-heading >
+                                    <h5  style="margin-top: 0;  margin-bottom: 0;   color: inherit;">{{g.content}}<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open[$index], 'glyphicon-chevron-right': !status.open[$index]}"></i></h5>
+                                </uib-accordion-heading>
+                                <div ng-repeat="gg in g.contentList">
+                                    <a class="glyphicon glyphicon-check" style="padding:5px" ui-sref="{{gg.url}}">{{gg.content}}</a>
+                                </div>
+                            </div>
+                        </uib-accordion>
+
                     </div>
+
                 </div>
             </uib-accordion>
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-lg-offset-2 main">
             <ui-view id="index-view"></ui-view>
         </div>
     </div>
