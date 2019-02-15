@@ -20,7 +20,19 @@ require.config({
     },
     shim: {
         'angular': {exports: 'angular'},
-        'angular-ui-router': {deps: ['angular']}
+        'angular-ui-router': {deps: ['angular']},
+        'angular-async-loader': {deps: ['angular']},
+        'ui.bootstrap': {deps: ['angular']},
+        'ngRoute': {deps: ['angular']},
+        'ngTouch': {deps: ['angular']},
+        'ngAnimate': {deps: ['angular']},
+        'ngSanitize': {deps: ['angular']},
+        'ngWebSocket': {deps: ['angular']},
+        'jquery': {deps: ['angular']},
+        'datetimepicker': {deps: ['angular']},
+        'datetimepicker.templates': {deps: ['angular']},
+        'moment': {deps: ['angular']},
+        'bootstrap-slider': {deps: ['angular']}
     }
 });
 require(['angular', 'app/app-routes'], function (angular) {

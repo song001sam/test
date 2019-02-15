@@ -50,5 +50,13 @@ define(function (require) {
                 controllerUrl: 'app/a',
                 controller: 'aController'
             })
+            .state('index.TXFXbar', {
+                url: '/TXFXbar',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'TXFX/bar.html';
+                },
+                controllerUrl: 'app/TXFX/bar',
+                controller: 'barController'
+            })
     }]);
 });

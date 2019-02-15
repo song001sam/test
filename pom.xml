@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -161,7 +161,7 @@
             <artifactId>inceptor-driver</artifactId>
             <version>5.1.0</version>
             <scope>system</scope>
-            <systemPath>/Users/songshaochen/IdeaProjects/BDIA/src/main/resources/lib/inceptor-sdk-transwarp-5.1.0.jar
+            <systemPath>d:/inceptor-sdk-transwarp-5.1.0.jar
             </systemPath>
         </dependency>
     </dependencies>
