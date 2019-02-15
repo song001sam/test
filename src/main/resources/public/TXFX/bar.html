@@ -1,0 +1,149 @@
+<div ng-init="init();">
+    <h1 class="page-header">
+        智能分析>条形图
+    </h1>
+    <div class="row">
+        <div class="col-lg-1">钢种选择</div>
+        <div class="col-lg-2">
+            <select ng-change="initCols()" ng-init="GW = GWList[0]" ng-model="GW"
+                    ng-options="x.value for x in GWList"></select>
+
+        </div>
+        <div class="col-lg-1 col-xs-3">厂区</div>
+        <div class="col-lg-2 col-xs-3"><select ng-model="CQ" ng-options="x.value for x in CQList"></select></div>
+        <div class="col-lg-1 col-xs-3">起止时间</div>
+        <div class="col-lg-4 col-xs-3 large">
+            <p class="input-group col-lg-5" style="float: left;">
+                <input class="form-control input-sm" close-text="Close" datepicker-options="dateOptions"
+                       is-open="popup1.opened"
+                       ng-model="dt1" ng-required="true" type="text" uib-datepicker-popup/>
+                <span class="input-group-btn">
+            <button class="btn btn-default input-sm" ng-click="open1()" type="button"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+            <span class="col-lg-2 text-center">至</span>
+            <p class="input-group col-lg-5">
+                <input class="form-control input-sm" close-text="Close" datepicker-options="dateOptions"
+                       is-open="popup2.opened"
+                       ng-model="dt2" ng-required="true" type="text" uib-datepicker-popup/>
+                <span class="input-group-btn">
+            <button class="btn btn-default input-sm" ng-click="open2()" type="button"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+        </div>
+        <div class="col-lg-1">
+            <button class="form-control btn btn-info">查询</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-1 col-xs-6">炉号</div>
+        <div class="col-lg-2 col-xs-6"><select ng-model="LH" ng-options="x.value for x in LHList"></select></div>
+        <div class="col-lg-1 col-xs-6">钢种</div>
+        <div class="col-lg-2 col-xs-6"><select ng-model="GZ" ng-options="x.value for x in List"></select></div>
+        <div class="col-lg-1 col-xs-6">技术标准</div>
+        <div class="col-lg-4 col-xs-6">
+            <select ng-model="JSBZ" ng-options="x.value for x in JSBZList"></select>
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-6">
+            <span>参数设置</span>
+            <div class="row">
+                <div class="col-lg-6 pre-scrollable">
+                    <table class=" table-bordered table-hover table small">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-3">字段名称</th>
+                            <th class="col-lg-3">类型</th>
+                            <th class="col-lg-6">含义</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-dblclick="dbl(col);" ng-repeat="col  in cols">
+                            <td>{{col.key}}</td>
+                            <td></td>
+                            <td style=" white-space:nowrap">{{col.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <!--<button>选择>></button>-->
+                        <!--<button>取消<<</button>-->
+                        <table class="table-bordered table-hover table small" ng-init="initCols();">
+                            <thead>
+                            <tr>
+                                <th class="col-lg-3">字段名称</th>
+                                <th class="col-lg-3">类型</th>
+                                <th class="col-lg-6">含义</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-dblclick="dbltarget(col);" ng-repeat="col  in targetCols">
+                                <td>{{col.key}}</td>
+                                <td></td>
+                                <td style=" white-space:nowrap">{{col.value}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <span>控制限</span>
+                        <input class="form-control" ng-model="KZX">
+                    </div>
+                    <div class="col-lg-12">
+                        <span>组数定义</span>
+                        <input class="form-control" ng-model="stepCount" placeholder="8" value="8">
+                    </div>
+                    <div class="col-lg-12">
+                        <button ng-click="echartsshow();">图形展现</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div id="echarts1" style="height: 400px"></div>
+            <table class=" table-bordered table-hover table table-condensed">
+                <tr>
+                    <td class="info" colspan="6">统计信息</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

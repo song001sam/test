@@ -11,7 +11,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootApplication(exclude = PageHelperAutoConfiguration.class)
+@SpringBootApplication
 @ServletComponentScan
 @ImportResource(locations = {"classpath:druid-bean.xml"})
 //@MapperScan("com.unissoft.test.mapper.*")

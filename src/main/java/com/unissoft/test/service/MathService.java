@@ -1,13 +1,17 @@
 package com.unissoft.test.service;
 
 public interface MathService {
-    public double getAverage(double[] arr);
+    double getAverage(double[] arr);
 
-    public double getStandardDeviation(double[] arr);
+    double getStandardDeviation(double[] arr);
 
-    public double getVariance(double[] arr);
+    double getVariance(double[] arr);
 
-    public double[][] getPearsonsCorrelation(double[][] arr);
+    double[][] getPearsonsCorrelation(double[][] arr);
 
-    public double[][] getPearsonsCorrelationPValue(double[][] arr);
+    double[][] getPearsonsCorrelationPValue(double[][] arr);
+
+    double getMax(double[] arr);
+
+    double getMin(double[] arr);
 }

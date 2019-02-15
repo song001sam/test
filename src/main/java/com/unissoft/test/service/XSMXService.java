@@ -9,4 +9,6 @@ public interface XSMXService {
     List<String> selectColName(String tableName);
 
     Map<String, String> selectColNameAndComment(String tableName);
+
+    List<Map<String, Object>> selectList(List<String> colName, String tableName);
 }

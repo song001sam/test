@@ -27,6 +27,7 @@ require.config({
         'ngTouch': {deps: ['angular']},
         'ngAnimate': {deps: ['angular']},
         'ngSanitize': {deps: ['angular']},
+        'ngWebSocket': {deps: ['angular']},
         'jquery': {deps: ['angular']},
         'datetimepicker': {deps: ['angular']},
         'datetimepicker.templates': {deps: ['angular']},

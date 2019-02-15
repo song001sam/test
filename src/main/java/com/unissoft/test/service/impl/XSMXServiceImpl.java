@@ -31,7 +31,7 @@ public class XSMXServiceImpl implements XSMXService {
                                 List l = doubleMap
                                         .getOrDefault(colName, new ArrayList<>());
 
-                                l.add(Double.valueOf(String.valueOf(mapTemp.get(colName))));
+                                l.add(Double.valueOf(String.valueOf(mapTemp.getOrDefault(colName, "0"))));
                                 doubleMap.put(colName, l);
 
                             });
@@ -51,6 +51,13 @@ public class XSMXServiceImpl implements XSMXService {
         return resultMap;
     }
 
+    @Override
+    public List<Map<String, Object>> selectList(List<String> colName, String tableName) {
+        Map map = new HashMap();
+        map.put("colNames", colName);
+        map.put("tableName", tableName);
+        return xsmxMapper.selectList(map);
+    }
     @Cacheable(cacheNames = "selectColName", key = "#tableName")
     @Override
     public List<String> selectColName(String tableName) {
@@ -64,7 +71,7 @@ public class XSMXServiceImpl implements XSMXService {
 //        xsmxMapper.selectColName(tableName).stream().forEach(x -> {
 //            result.put(x.get("COLUMN_NAME"), x.get("COLUMN_COMMENT"));
 //        });
-        xsmxMapper.selectColName(tableName).stream().forEach(x -> {
+        xsmxMapper.selectColName(tableName.toLowerCase()).stream().forEach(x -> {
             result.put(x.get("column_name"), x.get("commentstring"));
         });
         return result;

@@ -30,15 +30,26 @@ define(function (require) {
                         ]
                     },
                     {
-                        content: "生产数据统计分析", url: "index.TJFX"
+                        content: "生产数据统计分析", url: "index.TJFX", contentList: [
+                            {content: "生产数据统计分析", url: "index.TJFX"}
+                        ]
                     },
                     {
-                        content: "新钢种成分分析",
-                        url: "index.CFFX"
+                        content: "新钢种成分分析", url: "index.CFFX", contentList: [
+                            {content: "新钢种成分分析", url: "index.CFFX"}
+                        ]
+                    },
+                    {
+                        content: "图形分析", url: "index.TXFX", contentList: [
+                            {content: "条形图", url: "index.TXFXbar"}
+                        ]
                     },
                     {
                         content: "单工序分析",
-                        url: "index.XSMX"
+                        url: "index.XSMX",
+                        contentList: [
+                            {content: "单工序分析", url: "index.XSMX"}
+                        ]
                     }
                 ], content: "智能分析"
             },

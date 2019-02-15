@@ -7,10 +7,16 @@
             ${colName}
         </foreach>
         from ${tableName}
+        <where>
+            <foreach collection="colNames" item="colName" separator=" and ">
+                ${colName} is not null
+
+            </foreach>
+        </where>
     </select>
     <select id="selectColName" resultType="java.util.HashMap">
-
-      SELECT * FROM columns_v WHERE database_name = 'bdia' AND table_name = #{tableName};
-
+      use system;
+      SELECT * FROM columns_v WHERE database_name = 'bdia' AND lower(table_name) = #{tableName};
+      use bdia;
     </select>
 </mapper>

@@ -5,6 +5,8 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.descriptive.moment.*;
+import org.apache.commons.math3.stat.descriptive.rank.Max;
+import org.apache.commons.math3.stat.descriptive.rank.Min;
 import org.springframework.stereotype.Service;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 
@@ -29,6 +31,7 @@ public class MathServiceImpl implements MathService {
     @Override
     public double getStandardDeviation(double[] arr) {
         DescriptiveStatistics stats = new DescriptiveStatistics();
+
         for (double d : arr) {
             stats.addValue(d);
         }
@@ -57,6 +60,18 @@ public class MathServiceImpl implements MathService {
 //        System.out.println(pc.getCorrelationPValues());
 
         return pc.getCorrelationPValues().getData();
+    }
+
+    @Override
+    public double getMax(double[] arr) {
+        Max max = new Max();
+        return max.evaluate(arr);
+    }
+
+    @Override
+    public double getMin(double[] arr) {
+        Min min = new Min();
+        return min.evaluate(arr);
     }
 
 }

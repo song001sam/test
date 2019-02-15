@@ -17,31 +17,32 @@ define(function (require) {
         }
         $scope.page();
         $scope.open = function (size, parentSelector) {
-            var parentElem = parentSelector ?
-                angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+            var parentElem = parentSelector ? angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
             var modalInstance = $uibModal.open({
                 animation: $ctrl.animationsEnabled,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
                 templateUrl: 'MXGL/add.html',
                 controller: 'ModalInstanceCtrl',
-                controllerAs: '$ctrl',
+                controllerAs: '$scope1',
                 size: size,
                 appendTo: parentElem,
+                backdrop: "static",
                 resolve: {
                     items: function () {
-                        return $ctrl.items;
-                    }
+                        return $scope;
+                    },
+
                 }
             });
 
             modalInstance.result.then(function (selectedItem) {
-                $ctrl.selected = selectedItem;
+                $scope.selected = selectedItem;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
-    }).controller('ModalInstanceCtrl', function ($scope, $http) {
+    }).controller('ModalInstanceCtrl', function ($scope, $http, items, $uibModalInstance) {
 
         $scope.ok = function () {
             $http({
@@ -57,7 +58,10 @@ define(function (require) {
             }).then(function (response) {
                 $scope.totalItems = response.data.total;
                 $scope.list = response.data.list;
+
+
             }, function (response) {
+                $uibModalInstance.close();
             });
 
         }
