@@ -42,6 +42,30 @@ define(function (require) {
                 controllerUrl: 'app/XSMX/XSMX',
                 controller: 'XSMXController'
             })
+            .state('index.GYBZ_lianzhu', {
+                url: '/GYBZ_lianzhu',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'GYBZ/lianzhu_list.html';
+                },
+                controllerUrl: 'app/GYBZ/lianzhu_list',
+                controller: 'GYBZ_lianzhuController'
+            })
+            .state('index.GYBZ_lianzhu_sub1', {
+                url: '/GYBZ_lianzhu_sub1',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'GYBZ/lianzhu_sub1_list.html';
+                },
+                controllerUrl: 'app/GYBZ/lianzhu_sub1_list',
+                controller: 'GYBZ_lianzhuSub1Controller'
+            })
+            .state('index.GYBZ_lianzhu_sub2', {
+                url: '/GYBZ_lianzhu_sub2',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'GYBZ/lianzhu_sub2_list.html';
+                },
+                controllerUrl: 'app/GYBZ/lianzhu_sub2_list',
+                controller: 'GYBZ_lianzhuSub2Controller'
+            })
             .state('index.a', {
                 url: '/a',//ui-sref中的接受参数
                 templateUrl: function () {
@@ -57,6 +81,38 @@ define(function (require) {
                 },
                 controllerUrl: 'app/TXFX/bar',
                 controller: 'barController'
+            })
+            .state('index.TXFXpie', {
+                url: '/TXFXpie',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'TXFX/pie.html';
+                },
+                controllerUrl: 'app/TXFX/pie',
+                controller: 'pieController'
+            })
+            .state('index.XGXFX', {
+                url: '/SXFX/XGXFX',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'SXFX/XGXFX.html';
+                },
+                controllerUrl: 'app/SXFX/XGXFX',
+                controller: 'XGXFXController'
+            })
+            .state('index.FCFX', {
+                url: '/SXFX/FCFX',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'SXFX/FCFX.html';
+                },
+                controllerUrl: 'app/SXFX/FCFX',
+                controller: 'FCFXController'
+            })
+            .state('index.ZYFX', {
+                url: '/SXFX/ZYFX',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'SXFX/ZYFX.html';
+                },
+                controllerUrl: 'app/SXFX/ZYFX',
+                controller: 'ZYFXController'
             })
     }]);
 });

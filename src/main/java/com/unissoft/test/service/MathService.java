@@ -1,5 +1,7 @@
 package com.unissoft.test.service;
 
+import java.util.Collection;
+
 public interface MathService {
     double getAverage(double[] arr);
 
@@ -14,4 +16,6 @@ public interface MathService {
     double getMax(double[] arr);
 
     double getMin(double[] arr);
+
+    double getOneWayAnova(Collection<double[]> doubles);
 }

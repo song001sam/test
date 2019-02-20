@@ -57,16 +57,16 @@ define(['echarts',
         $scope.dbl = function (col) {
             $scope.removeByValue($scope.cols, col);
             $scope.targetCols.push(col);
-            $scope.targetCols.sort((x, y) = > x.sort - y.sort
+            $scope.targetCols.sort((x, y) => x.sort - y.sort
         )
             ;
         }
         $scope.dbltarget = function (col) {
             $scope.removeByValue($scope.targetCols, col);
             $scope.cols.push(col);
-            $scope.cols.sort((x, y) = > x.sort - y.sort
+            $scope.cols.sort((x, y) => x.sort - y.sort
         )
-            ;
+            ; 
         }
         $scope.echartsshow = function () {
             if ($scope.targetCols.length != 1) {

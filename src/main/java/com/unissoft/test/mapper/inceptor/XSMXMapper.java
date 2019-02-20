@@ -12,4 +12,6 @@ public interface XSMXMapper {
     List<Map<String, Object>> selectList(Map<String, Object> map);
 
     List<Map<String, String>> selectColName(String tableName);
+
+    List<String> GZList();
 }

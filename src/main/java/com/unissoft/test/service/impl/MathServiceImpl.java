@@ -7,18 +7,17 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.commons.math3.stat.descriptive.moment.*;
 import org.apache.commons.math3.stat.descriptive.rank.Max;
 import org.apache.commons.math3.stat.descriptive.rank.Min;
+import org.apache.commons.math3.stat.inference.OneWayAnova;
 import org.springframework.stereotype.Service;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.*;
 
 //import org.apache.commons.math3.stat.
 @Service
 public class MathServiceImpl implements MathService {
     double[] values = new double[]{0.33, 1.33, 0.27333, 0.3, 0.501, 0.444, 0.44, 0.34496, 0.33, 0.3, 0.292, 0.667};
-
+    private static final double threshold = 0.95;// 特征值阈值
     @Override
     public double getAverage(double[] arr) {
         DescriptiveStatistics stats = new DescriptiveStatistics();
@@ -73,5 +72,16 @@ public class MathServiceImpl implements MathService {
         Min min = new Min();
         return min.evaluate(arr);
     }
+
+
+    @Override
+    public double getOneWayAnova(Collection<double[]> doubles) {
+        OneWayAnova owa = new OneWayAnova();
+//        List<double[]> list = new ArrayList<>();
+//        list.add(values);
+//        list.add(values);
+        return owa.anovaFValue(doubles);
+    }
+
 
 }

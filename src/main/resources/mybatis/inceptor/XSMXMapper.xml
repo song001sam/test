@@ -10,13 +10,20 @@
         <where>
             <foreach collection="colNames" item="colName" separator=" and ">
                 ${colName} is not null
-
             </foreach>
+
+            <if test="GZ != null and GZ != ''">
+                stl_grd_cd = #{GZ}
+            </if>
         </where>
+
     </select>
     <select id="selectColName" resultType="java.util.HashMap">
       use system;
       SELECT * FROM columns_v WHERE database_name = 'bdia' AND lower(table_name) = #{tableName};
       use bdia;
+    </select>
+    <select id="GZList" resultType="java.lang.String">
+        select stl_grd_desc from ai_fmatcode_orc;
     </select>
 </mapper>

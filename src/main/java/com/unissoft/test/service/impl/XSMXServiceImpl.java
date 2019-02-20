@@ -52,12 +52,45 @@ public class XSMXServiceImpl implements XSMXService {
     }
 
     @Override
+    public Map<String, double[][]> XGXFX(Map<String, Object> map) {
+        List<String> colList = (List<String>) map.get("colNames");
+        List<Map<String, Object>> list = xsmxMapper.selectList(map);
+        Map<String, List<Double>> doubleMap = new HashMap<>();
+        Map<String, double[][]> resultMap = new HashMap<>();
+        colList.forEach(
+                colName -> {
+                    list.forEach(
+                            mapTemp -> {
+                                List l = doubleMap
+                                        .getOrDefault(colName, new ArrayList<>());
+
+                                l.add(Double.valueOf(String.valueOf(mapTemp.getOrDefault(colName, "0"))));
+                                doubleMap.put(colName, l);
+
+                            });
+                });
+        double[][] result = new double[list.size()][colList.size()];
+        List<List<Double>> listlist = list.stream().map(m -> m.values().stream().map(mm -> Double.valueOf(mm.toString())).collect(Collectors.toList())).collect(Collectors.toList());
+        listlist.stream().map(x -> x.stream().mapToDouble(Double::doubleValue).toArray()).collect(Collectors.toList()).toArray(result);
+        resultMap.put("Correlation", mathService.getPearsonsCorrelation(result));
+        resultMap.put("PValue", mathService.getPearsonsCorrelationPValue(result));
+        return resultMap;
+    }
+
+    @Override
     public List<Map<String, Object>> selectList(List<String> colName, String tableName) {
         Map map = new HashMap();
         map.put("colNames", colName);
         map.put("tableName", tableName);
         return xsmxMapper.selectList(map);
     }
+
+    @Override
+    @Cacheable
+    public List<String> GZList() {
+        return xsmxMapper.GZList();
+    }
+
     @Cacheable(cacheNames = "selectColName", key = "#tableName")
     @Override
     public List<String> selectColName(String tableName) {

@@ -14,8 +14,8 @@ require.config({
         'datetimepicker.templates': 'Angularjs/datetimepicker.templates',
         'moment': 'moment',
         'echarts': 'echarts',
-        'bootstrap-slider': 'Bootstrap/bootstrap-slider'
-
+        'bootstrap-slider': 'Bootstrap/bootstrap-slider',
+        // 'SXFXheader':'app/SXFX/header'
 
     },
     shim: {
