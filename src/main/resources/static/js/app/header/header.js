@@ -1,7 +1,7 @@
 define(['../app',
     'angular'
 ], function (app, angular) {
-    app.controller('SXFXHeaderController', function ($scope, $http, $uibModal) {
+    app.controller('headerController', function ($scope, $http, $uibModal) {
         $scope.init = function () {
             $scope.GXList = [
                 {code: "AI_LG_LD_ORC", value: "转炉"},
@@ -20,27 +20,23 @@ define(['../app',
                 },
                 getterSetter: true
             };
-        }
-
-        //初始化下拉框
-        $scope.initCols = function () {
-            console.info($scope);
-            $http({
-                url: "XSMX/colNameAndComment/" + $scope.GX.code,
-                method: "GET"
-
-            }).then(function (res) {
-                $scope.$emit('initCols', res.data);
-
-            }, function () {
-
-            });
             $http({
                 url: "XSMX/GZList",
                 method: "GET"
             }).then(function (res) {
                 $scope.GZList = res.data;
             });
+        }
+
+        //初始化
+        $scope.GXChange = function () {
+            $scope.$emit('GXChange', $scope.GX.code);
+        }
+        $scope.GZChange = function () {
+            $scope.$emit('GZChange', $scope.GZ);
+        }
+        $scope.GGChange = function () {
+            $scope.$emit('GGChange', $scope.GG);
         }
         //数组移除元素方法
 

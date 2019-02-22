@@ -3,14 +3,16 @@
     <div class="row">
         <div class="col-lg-1">工序</div>
         <div class="col-lg-3">
-            <select class="form-control" ng-change="initCols()" ng-init="GX = GXList[0]" ng-model="$parent.GX"
+            <select class="form-control" ng-change="GXChange()" ng-init="GX = GXList[0]" ng-model="$parent.GX"
                     ng-options="x.value for x in GXList"></select>
         </div>
         <div class="col-lg-1 col-xs-3">钢种</div>
         <div class="col-lg-2 col-xs-3">
             <!--<select class="form-control" ng-model="GZ" ng-options="x for x in GZList"></select>-->
             <input class="form-control" ng-model="$parent.GZ" ng-model-options="modelOptions" type="text"
-                   typeahead-editable="false" uib-typeahead="x for x in GZList | filter:$viewValue | limitTo:8">
+                   typeahead-editable="false"
+                   typeahead-loading="loading" typeahead-on-select="GZChange()"
+                   uib-typeahead="x for x in GZList | filter:$viewValue | limitTo:8">
         </div>
         <div class="col-lg-1 col-xs-3">规格</div>
         <div class="col-lg-2 col-xs-3"><select class="form-control" ng-model="$parent.GG"

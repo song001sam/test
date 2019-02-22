@@ -75,13 +75,19 @@ public class MathServiceImpl implements MathService {
 
 
     @Override
-    public double getOneWayAnova(Collection<double[]> doubles) {
+    public double getOneWayAnovaFValue(Collection<double[]> doubles) {
         OneWayAnova owa = new OneWayAnova();
-//        List<double[]> list = new ArrayList<>();
-//        list.add(values);
-//        list.add(values);
         return owa.anovaFValue(doubles);
     }
 
+    @Override
+    public double getOneWayAnovaPValue(Collection<double[]> doubles) {
+        OneWayAnova owa = new OneWayAnova();
+        return owa.anovaPValue(doubles);
+    }
 
+    @Override
+    public double[][] getPXG(double[][] doubles) {
+        return doubles;
+    }
 }

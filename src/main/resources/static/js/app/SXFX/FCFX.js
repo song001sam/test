@@ -1,55 +1,38 @@
 define(['echarts',
-    'require'
-], function (ec, require, bs) {
-    var app = require('../app');
-    var angular = require('angular');
+    'require',
+    '../header/header',
+    '../app',
+    'angular'
+], function (ec, require, header, app, angular) {
     app.controller('FCFXController', function ($scope, $http, $uibModal) {
         $scope.init = function () {
-            $scope.open2 = function () {
-                $scope.popup2.opened = true;
-            };
-            $scope.open1 = function () {
-                $scope.popup1.opened = true;
-            };
-            $scope.popup1 = {
-                opened: false
-            };
 
-            $scope.popup2 = {
-                opened: false
-            };
-            $scope.GWList = [
-                {code: "AI_LG_LD_ORC", value: "转炉"},
-                {code: "AI_LG_LF_ORC", value: "LF"},
-                {code: "AI_LG_RH_ORC", value: "RH"}
-            ]
             $scope.cols = [];
             $scope.inCols = [];
+            $scope.outCols = [];
             $scope.data = {};
-            $scope.pValue = 0.05;
         }
-        $scope.format = function (num) {
-            return num.toFixed(4);
-        }
-        //初始化下拉框
-        $scope.initCols = function () {
+        $scope.$on('GXChange', function (e, m) {
+            $scope.GX = m;
             $http({
-                url: "XSMX/colNameAndComment/" + $scope.GW.code,
+                url: "XSMX/colNameAndComment/" + m,
                 method: "GET"
 
             }).then(function (res) {
-                $scope.cols = []
                 let i = 0;
                 angular.forEach(res.data, function (value, key) {
-                    i++;//增加排序字段
-                    $scope.cols.push({"key": key, "value": value, sort: i});
+                    i++;
+                    $scope.cols.push({"key": key, "value": value, "sort": i});
                 })
-
-
             }, function () {
 
             });
-        }
+
+
+        });
+        $scope.$on('GZChange', function (e, m) {
+            console.info(m);
+        });
         //数组移除元素方法
         $scope.removeByValue = function (arr, val) {
             for (let i = 0; i < arr.length; i++) {
@@ -67,9 +50,13 @@ define(['echarts',
         $scope.selectColRightIn = function (col) {
             $scope.selectedColRightIn = col;
         }
+        //右侧输出选中，同上
+        $scope.selectColRightOut = function (col) {
+            $scope.selectedColRightOut = col;
+        }
         //判断选中列方法
         $scope.chcekColSelected = function (col) {
-            return col == $scope.selectedCol;
+            return col == $scope.selectedCol || col == $scope.selectedColRightIn || col == $scope.selectedColRightOut;
         }
         //增加输入字段方法
         $scope.addIn = function () {
@@ -78,22 +65,31 @@ define(['echarts',
             $scope.inCols.sort((x, y) => x.sort - y.sort)
             $scope.selectedCol = undefined;
         }
-
+        $scope.addOut = function () {
+            $scope.removeByValue($scope.cols, $scope.selectedCol);
+            $scope.outCols.push($scope.selectedCol);
+            $scope.outCols.sort((x, y) => x.sort - y.sort)
+            $scope.selectedCol = undefined;
+        }
         $scope.delIn = function () {
             $scope.removeByValue($scope.inCols, $scope.selectedColRightIn);
             $scope.cols.push($scope.selectedColRightIn);
             $scope.cols.sort((x, y) => x.sort - y.sort)
             $scope.selectedColRightIn = undefined;
         }
-
+        $scope.delOut = function () {
+            $scope.removeByValue($scope.outCols, $scope.selectedColRightOut);
+            $scope.cols.push($scope.selectedColRightOut);
+            $scope.cols.sort((x, y) => x.sort - y.sort)
+            $scope.selectedColRightOut = undefined;
+        }
         $scope.show = function () {
             $http({
-                url: "XSMX/XGXFX",
+                url: "XSMX/FCFX",
                 method: "post",
                 data: {
-                    tableName: $scope.GW.code,
-                    colIn: $scope.inCols,
-                    colOut: $scope.outCols
+                    tableName: $scope.GX,
+                    colIn: $scope.inCols
                 }
             }).then(function (res) {
                 $scope.data = res.data;
@@ -101,10 +97,17 @@ define(['echarts',
             }, function (err) {
                 //错误代码
             });
+            $scope.selectedColRightOut = undefined;
+            $scope.selectedColRightIn = undefined;
+            $scope.selectedCol = undefined;
         }
     }).filter('numFormat', function () { //可以注入依赖
         return function (num, digits) {
-            return num.toFixed(digits);
+            if (num && typeof (num) == "number") {
+                return num.toFixed(digits);
+            } else {
+                return num;
+            }
         }
     });
 });

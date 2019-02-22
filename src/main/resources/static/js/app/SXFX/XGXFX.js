@@ -1,6 +1,6 @@
 define(['echarts',
     'require',
-    './header',
+    '../header/header',
     '../app',
     'angular'
 ], function (ec, require, header, app, angular) {
@@ -14,17 +14,27 @@ define(['echarts',
             $scope.outCols = [];
             $scope.data = {};
         }
-        $scope.$on('initCols', function (e, m) {
-            let i = 0;
-            angular.forEach(m, function (value, key) {
-                $scope.cols.push({"key": key, "value": value});
-            })
-            $scope.cols.sort((x, y) => x.key.localeCompare(y.key));
-            angular.forEach($scope.cols, function (n, o) {
-                i++;
-                n.sort = i;
-            })
-        })
+        $scope.$on('GXChange', function (e, m) {
+            $scope.GX = m;
+            $http({
+                url: "XSMX/colNameAndComment/" + m,
+                method: "GET"
+
+            }).then(function (res) {
+                let i = 0;
+                angular.forEach(res.data, function (value, key) {
+                    i++;
+                    $scope.cols.push({"key": key, "value": value, "sort": i});
+                })
+            }, function () {
+
+            });
+
+
+        });
+        $scope.$on('GZChange', function (e, m) {
+            console.info(m);
+        });
         //数组移除元素方法
         $scope.removeByValue = function (arr, val) {
             for (let i = 0; i < arr.length; i++) {
@@ -48,7 +58,7 @@ define(['echarts',
         }
         //判断选中列方法
         $scope.chcekColSelected = function (col) {
-            return col == $scope.selectedCol;
+            return col == $scope.selectedCol || col == $scope.selectedColRightIn || col == $scope.selectedColRightOut;
         }
         //增加输入字段方法
         $scope.addIn = function () {
@@ -80,7 +90,7 @@ define(['echarts',
                 url: "XSMX/XGXFX",
                 method: "post",
                 data: {
-                    tableName: $scope.GX.code,
+                    tableName: $scope.GX,
                     colIn: $scope.inCols,
                     colOut: $scope.outCols
                 }
@@ -90,10 +100,17 @@ define(['echarts',
             }, function (err) {
                 //错误代码
             });
+            $scope.selectedColRightOut = undefined;
+            $scope.selectedColRightIn = undefined;
+            $scope.selectedCol = undefined;
         }
     }).filter('numFormat', function () { //可以注入依赖
         return function (num, digits) {
-            return num.toFixed(digits);
+            if (num && typeof (num) == "number") {
+                return num.toFixed(digits);
+            } else {
+                return num;
+            }
         }
     });
 });

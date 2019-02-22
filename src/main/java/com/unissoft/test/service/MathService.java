@@ -17,5 +17,9 @@ public interface MathService {
 
     double getMin(double[] arr);
 
-    double getOneWayAnova(Collection<double[]> doubles);
+    double getOneWayAnovaFValue(Collection<double[]> doubles);
+
+    double getOneWayAnovaPValue(Collection<double[]> doubles);
+
+    double[][] getPXG(double[][] doubles);
 }

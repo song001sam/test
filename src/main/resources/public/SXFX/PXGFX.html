@@ -27,17 +27,25 @@
 
                 </div>
             </div>
+            <div class="col-lg-12">
+                <span class="col-lg-12">说明</span>
+                <span class="col-lg-12">
+                    可以选择一个或多个影响变量！
+                    若不选择影响变量，则计算分析变量两两之间除去其他所有变量的偏相关系数。
+                </span>
+            </div>
         </div>
         <div class="col-lg-1">
-            <button class="btn btn-primary btn-mini small" ng-click="addIn()" ng-if="selectedCol">添加输入</button>
-            <button class="btn btn-info  btn-mini small" ng-click="delIn()" ng-if="selectedColRightIn">移除输入</button>
-            <button class="btn btn-primary  btn-mini small" ng-click="addOut()" ng-if="selectedCol">添加输出</button>
-            <button class="btn btn-info  btn-mini small" ng-click="delOut()" ng-if="selectedColRightOut">移除输出</button>
+            <button class="btn btn-primary btn-mini small" ng-click="addIn()" ng-if="selectedCol">添加分析</button>
+            <button class="btn btn-info  btn-mini small" ng-click="delIn()" ng-if="selectedColRightIn">移除分析</button>
+            <button class="btn btn-primary  btn-mini small" ng-click="addOut()" ng-if="selectedCol">添加影响</button>
+            <button class="btn btn-info  btn-mini small" ng-click="delOut()" ng-if="selectedColRightOut">移除影响</button>
         </div>
         <div class="col-lg-3">
             <div class="col-lg-12">
                 <!--<button>选择>></button>-->
                 <!--<button>取消<<</button>-->
+                <span>分析变量:</span>
                 <table class="table-bordered table-hover table small">
                     <thead>
                     <tr>
@@ -53,7 +61,22 @@
                     </tr>
                     </tbody>
                 </table>
-
+                <span>影响变量:</span>
+                <table class="table-bordered table-hover table small">
+                    <thead>
+                    <tr>
+                        <th class="col-lg-3">字段名称</th>
+                        <th class="col-lg-6">含义</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-class="{'info':chcekColSelected(col)}" ng-click="selectColRightOut(col);"
+                        ng-repeat="col  in outCols">
+                        <td>{{col.key}}</td>
+                        <td style=" white-space:nowrap">{{col.value}}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="col-lg-12">
                 <button ng-click="show();">计算展现</button>
@@ -81,7 +104,6 @@
                 </tbody>
             </table>
             <span class="">蓝色标记为显著性检验通过，可以否定无效假设</span>
-
         </div>
     </div>
 </div>

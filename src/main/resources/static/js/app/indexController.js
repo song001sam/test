@@ -145,7 +145,7 @@ define(function (require) {
                     {
                         content: "质量缺陷分析（单工序分析）", url: "index.MXGL", contentList: [
                             {content: "线性相关分析", url: "index.XGXFX"},
-                            {content: "偏相关分析", url: "index.MXGL"},
+                            {content: "偏相关分析", url: "index.PXGFX"},
                             {content: "方差分析（单因子/多因子）", url: "index.FCFX"},
                             {content: "主元分析", url: "index.ZYFX"}
                         ]

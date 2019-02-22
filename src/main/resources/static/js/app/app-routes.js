@@ -114,5 +114,13 @@ define(function (require) {
                 controllerUrl: 'app/SXFX/ZYFX',
                 controller: 'ZYFXController'
             })
+            .state('index.PXGFX', {
+                url: '/SXFX/PXGFX',//ui-sref中的接受参数
+                templateUrl: function () {
+                    return 'SXFX/PXGFX.html';
+                },
+                controllerUrl: 'app/SXFX/PXGFX',
+                controller: 'PXGFXController'
+            })
     }]);
 });

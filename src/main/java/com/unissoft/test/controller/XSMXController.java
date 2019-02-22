@@ -4,10 +4,7 @@ import com.unissoft.test.service.XSMXService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,37 +30,40 @@ public class XSMXController {
     @RequestMapping(value = "/XSMX/XGXFX", method = RequestMethod.POST)
     public Map<String, double[][]> XGXFX(@RequestBody Map<String, Object> map) {
         //获取输入输出列名
+        List<String> colName = new ArrayList<>();
         List<String> colInName = ((List<Map<String, String>>) map.get("colIn")).stream().map(x -> x.get("key")).collect(Collectors.toList());
         List<String> colIOutName = ((List<Map<String, String>>) map.get("colOut")).stream().map(x -> x.get("key")).collect(Collectors.toList());
-//        String GZ = (String) map.getOrDefault("GZ","");
-        List<String> colName = new ArrayList<>();
-        colName.addAll(colInName);
-        colName.addAll(colIOutName);
+        colInName.forEach(x -> colName.add(x));
+        colIOutName.forEach(x -> colName.add(x));
         map.put("colNames", colName);
-        //查询结果
-        Map<String, double[][]> result = service.XGXFX(map);
-        int inCount = colInName.size();
-        int outCount = colIOutName.size();
-        //结果处理，去掉不需要的数据
-        double[][] correlation = result.get("Correlation");
-        double[][] correlationNew = new double[inCount][outCount];
-        Arrays.stream(correlation)
-                .limit(inCount)
-                .map(x -> Arrays.stream(x).skip(inCount).toArray())
-                .collect(Collectors.toList()).toArray(correlationNew);
-        result.put("Correlation", correlationNew);
-        double[][] pValue = result.get("PValue");
-        double[][] pValueNew = new double[inCount][outCount];
-        Arrays.stream(pValue)
-                .limit(inCount)
-                .map(x -> Arrays.stream(x).skip(inCount).toArray())
-                .collect(Collectors.toList())
-                .toArray(pValueNew);
-        result.put("PValue", pValueNew);
+        // 查询结果
+//        System.out.println(map);
+        Map<String, double[][]> result = service.XGXFX(map, colInName.size(), colIOutName.size());
 
         return result;
     }
 
+    @RequestMapping(value = "/XSMX/FCFX", method = RequestMethod.POST)
+    public Map<String, Double> FCFX(@RequestBody Map<String, Object> map) {
+        //获取输入输出列名
+        List<String> colInName = ((List<Map<String, String>>) map.get("colIn")).stream().map(x -> x.get("key")).collect(Collectors.toList());
+        map.put("colNames", colInName);
+        // 查询结果
+        return service.FCFX(map);
+    }
+
+    @RequestMapping(value = "/XSMX/PXGFX", method = RequestMethod.POST)
+    public Map<String, Double> PXGFX(@RequestBody Map<String, Object> map) {
+        //获取输入输出列名
+        List<String> colName = new ArrayList<>();
+        List<String> colInName = ((List<Map<String, String>>) map.get("colIn")).stream().map(x -> x.get("key")).collect(Collectors.toList());
+        List<String> colIOutName = ((List<Map<String, String>>) map.get("colOut")).stream().map(x -> x.get("key")).collect(Collectors.toList());
+        colInName.forEach(x -> colName.add(x));
+        colIOutName.forEach(x -> colName.add(x));
+        map.put("colNames", colName);
+        // 查询结果
+        return service.PXGFX(map, colInName.size(), colIOutName.size());
+    }
     @RequestMapping(value = "/XSMX/colNameAndComment/{tableName}", method = RequestMethod.GET)
     public Map<String, String> colNameAndComment(@PathVariable String tableName) {
         return service.selectColNameAndComment(tableName);
