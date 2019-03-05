@@ -1,0 +1,82 @@
+<div ng-init="initPage()">
+    <h1 class="page-header">
+        过程质量诊断与预警>诊断信息查询
+    </h1>
+    <div class="row">
+        <div class="col-lg-1">炉号</div>
+        <div class="col-lg-2"><input class="form-control" ng-model="luhao" type="text"></div>
+        <div class="col-lg-1">
+            <button class="btn btn-default" ng-click="query()">查询</button>
+        </div>
+    </div>
+    <hr>
+    <div ng-show="initShow">
+        <div>
+            <table class="table-striped table-bordered table-hover table-responsive table">
+                <thead>
+                <tr>
+                    <td>炉号</td>
+                    <td>指标项</td>
+                    <td>采集时间</td>
+                    <td>工序</td>
+                    <td>标准值</td>
+                    <td>实绩值</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in initList">
+                    <td>{{x.heatno}}</td>
+                    <td>{{x.std_name}}</td>
+                    <td>{{x.rcv_time}}</td>
+                    <td>{{x.matcode}}</td>
+                    <td>{{x.std_result}}</td>
+                    <td>{{x.real_result}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pull-right">
+            <ul boundary-links="true" class="pagination-sm" first-text="&laquo;" items-per-page="5" last-text="&raquo;"
+                max-size="5" next-text="&rsaquo;" ng-change="initPage()" ng-model="initCurrentPage"
+                previous-text="&lsaquo;"
+                total-items="initTotalItems"
+                uib-pagination
+            ></ul>
+        </div>
+    </div>
+
+    <div ng-show="show">
+        <div>
+            <table class="table-striped table-bordered table-hover table-responsive table">
+                <thead>
+                <tr>
+                    <td>炉号</td>
+                    <td>指标项</td>
+                    <td>采集时间</td>
+                    <td>工序</td>
+                    <td>标准值</td>
+                    <td>实绩值</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="x in list">
+                    <td>{{x.heatno}}</td>
+                    <td>{{x.std_name}}</td>
+                    <td>{{x.rcv_time}}</td>
+                    <td>{{x.matcode}}</td>
+                    <td>{{x.std_result}}</td>
+                    <td>{{x.real_result}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="pull-right">
+            <ul boundary-links="true" class="pagination-sm" first-text="&laquo;" items-per-page="5" last-text="&raquo;"
+                max-size="5" next-text="&rsaquo;" ng-change="page()" ng-model="currentPage"
+                previous-text="&lsaquo;"
+                total-items="totalItems"
+                uib-pagination
+            ></ul>
+        </div>
+    </div>
+</div>

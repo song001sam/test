@@ -1,6 +1,7 @@
 define(['echarts',
     'require',
-    'bootstrap-slider'
+    'bootstrap-slider',
+    '../header/header'
 ], function (ec, require, bs) {
     var app = require('../app');
 
@@ -28,24 +29,43 @@ define(['echarts',
             $scope.cols = []
             $scope.targetCols = []
             $scope.KZX = 0;
+            $scope.countMap = "";
         }
-        $scope.initCols = function () {
+        $scope.$on('GXChange', function (e, m) {
+            console.info(e)
+            $scope.GX = m;
             $http({
-                url: "Txfx/bar/colNameAndComment/" + $scope.GW.code,
+                url: "XSMX/colNameAndComment/" + m,
                 method: "GET"
 
             }).then(function (res) {
-                $scope.cols = []
+                $scope.cols = [];
+                let i = 0;
                 angular.forEach(res.data, function (value, key) {
-
-                    $scope.cols.push({"key": key, "value": value});
+                    i++;
+                    $scope.cols.push({"key": key, "value": value, "sort": i});
                 })
-
-
             }, function () {
 
             });
+
+
+        });
+        $scope.$on('GZChange', function (e, m) {
+            $scope.GZ = m;
+        });
+        $scope.chkTr = function (col) {
+            $scope.focus = col;
         }
+        $scope.chkCol = function (col) {
+            return col == $scope.focus;
+        }
+        $scope.removeByArr = function (arr, targetArr) {
+            for (var i = 0; i < arr.length; i++) {
+                targetArr.push(arr[i]);
+            }
+            targetArr.sort((x, y) => x.sort - y.sort);
+        };
         $scope.removeByValue = function (arr, val) {
             for (var i = 0; i < arr.length; i++) {
                 if (arr[i] === val) {
@@ -54,19 +74,35 @@ define(['echarts',
                 }
             }
         };
-        $scope.dbl = function (col) {
-            $scope.removeByValue($scope.cols, col);
-            $scope.targetCols.push(col);
-            $scope.targetCols.sort((x, y) => x.sort - y.sort
-        )
-            ;
+        $scope.addByValue = function (arr, val) {
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] === val) {
+                    return;
+                }
+            }
+            arr.push(val);
+        };
+        $scope.addUp = function () {
+            if ($scope.focus == undefined) {
+                return;
+            }
+            //先要将之前选择的覆盖掉
+            $scope.removeByArr($scope.targetCols, $scope.cols);
+            $scope.targetCols = [];
+            //添加
+            $scope.removeByValue($scope.cols, $scope.focus);
+            $scope.targetCols.push($scope.focus);
+            $scope.targetCols.sort((x, y) => x.sort - y.sort);
+            $scope.focus = undefined;
         }
-        $scope.dbltarget = function (col) {
-            $scope.removeByValue($scope.targetCols, col);
-            $scope.cols.push(col);
-            $scope.cols.sort((x, y) => x.sort - y.sort
-        )
-            ; 
+        $scope.delUp = function () {
+            if ($scope.focus == undefined) {
+                return;
+            }
+            $scope.removeByValue($scope.targetCols, $scope.focus);
+            $scope.addByValue($scope.cols, $scope.focus);
+            $scope.cols.sort((x, y) => x.sort - y.sort);
+            $scope.focus = undefined;
         }
         $scope.echartsshow = function () {
             if ($scope.targetCols.length != 1) {
@@ -80,7 +116,7 @@ define(['echarts',
             $http({
                 url: "Txfx/bar/echartsshow/",
                 method: "POST",
-                data: {targetCols: $scope.targetCols, tableName: $scope.GW.code, stepCount: $scope.stepCount}
+                data: {targetCols: $scope.targetCols, tableName: $scope.GX, stepCount: $scope.stepCount, GZ: $scope.GZ}
             }).then(function (res) {
                 $scope.data = res.data;
                 $scope.xAxisList = [];
@@ -100,6 +136,13 @@ define(['echarts',
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                             type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {readOnly: false},
+                            restore: {},
+                            saveAsImage: {}
                         }
                     },
                     grid: {
@@ -158,6 +201,18 @@ define(['echarts',
             }, function () {
 
             });
+
+            $http({
+                url: "Txfx/bar/dataCount/",
+                method: "POST",
+                data: {targetCols: $scope.targetCols, tableName: $scope.GX, stepCount: $scope.stepCount, GZ: $scope.GZ}
+            }).then(function (res) {
+                $scope.countMap = res.data;
+
+            }, function () {
+
+            });
+            
         }
     });
 

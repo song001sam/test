@@ -21,10 +21,17 @@ define(['echarts',
                 method: "GET"
 
             }).then(function (res) {
-                let i = 0;
+                $scope.cols = [];
                 angular.forEach(res.data, function (value, key) {
+                    $scope.cols.push({"key": key, "value": value});
+                })
+                $scope.cols.sort(function (x, y) {
+                    return x.key.localeCompare(y.key);
+                });
+                let i = 0;
+                angular.forEach($scope.cols, function (value, key) {
                     i++;
-                    $scope.cols.push({"key": key, "value": value, "sort": i});
+                    value.sort = i;
                 })
             }, function () {
 
@@ -33,7 +40,7 @@ define(['echarts',
 
         });
         $scope.$on('GZChange', function (e, m) {
-            console.info(m);
+            $scope.GZ = m;
         });
         //数组移除元素方法
         $scope.removeByValue = function (arr, val) {
@@ -92,7 +99,8 @@ define(['echarts',
                 data: {
                     tableName: $scope.GX,
                     colIn: $scope.inCols,
-                    colOut: $scope.outCols
+                    colOut: $scope.outCols,
+                    GZ: $scope.GZ
                 }
             }).then(function (res) {
                 $scope.data = res.data;

@@ -4,6 +4,7 @@ import Jama.Matrix;
 import com.unissoft.test.service.XSMXService;
 import com.unissoft.test.service.impl.XSMXServiceImpl;
 import com.unissoft.test.utils.PCAUtils;
+import one.util.streamex.DoubleStreamEx;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.junit.Test;
@@ -20,12 +21,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class test {
-    @Autowired
-    XSMXService service;
+
 
     public void mm() {
         PCAUtils pca = new PCAUtils();
@@ -38,53 +39,51 @@ public class test {
         RealMatrix n = new Array2DRowRealMatrix(primaryArray);
         n = n.getSubMatrix(2, 3, 1, 3);
         System.out.println(n);
-//        Matrix mm = new Matrix(primaryArray);
+        Matrix mm = new Matrix(primaryArray);
 
-//        mm.print(7, 4);
+        mm.print(7, 4);
 
-//        System.out.println("--------------------------------------------");
-//        double[][] averageArray = pca.changeAverageToZero(primaryArray);
-//        System.out.println("--------------------------------------------");
-//        System.out.println("均值0化后的数据: ");
-//        System.out.println(averageArray.length + "行，"
-//                + averageArray[0].length + "列");
-//        mm = new Matrix(averageArray);
-//        mm.print(7, 4);
-//        System.out.println("---------------------------------------------");
-//        System.out.println("协方差矩阵: ");
-//        double[][] varMatrix = pca.getVarianceMatrix(averageArray);
-//        mm = new Matrix(varMatrix);
-//        mm.print(7, 4);
-//        System.out.println("--------------------------------------------");
-//        System.out.println("特征值矩阵: ");
-//        double[][] eigenvalueMatrix = pca.getEigenvalueMatrix(varMatrix);
-//        mm = new Matrix(eigenvalueMatrix);
-//        mm.print(7, 4);
-//        System.out.println("--------------------------------------------");
-//        System.out.println("特征向量矩阵: ");
-//        double[][] eigenVectorMatrix = pca.getEigenVectorMatrix(varMatrix);
-//        mm = new Matrix(eigenVectorMatrix);
-//        mm.print(7, 4);
-//        System.out.println("--------------------------------------------");
-//        Matrix principalMatrix = pca.getPrincipalComponent(primaryArray, eigenvalueMatrix, eigenVectorMatrix);
-//        System.out.println("主成分矩阵: ");
-//        principalMatrix.print(7, 4);
-//
-//        System.out.println("--------------------------------------------");
-//        System.out.println("降维后的矩阵: ");
-//        Matrix resultMatrix = pca.getResult(primaryArray, principalMatrix);
-//        resultMatrix.print(7, 4);
-//        int c = resultMatrix.getColumnDimension(); //列数
-//        int r = resultMatrix.getRowDimension();//行数
-//        System.out.println(resultMatrix.getRowDimension() + "行," + resultMatrix.getColumnDimension() + "列");
+        System.out.println("--------------------------------------------");
+        double[][] averageArray = pca.changeAverageToZero(primaryArray);
+        System.out.println("--------------------------------------------");
+        System.out.println("均值0化后的数据: ");
+        System.out.println(averageArray.length + "行，"
+                + averageArray[0].length + "列");
+        mm = new Matrix(averageArray);
+        mm.print(7, 4);
+        System.out.println("---------------------------------------------");
+        System.out.println("协方差矩阵: ");
+        double[][] varMatrix = pca.getVarianceMatrix(averageArray);
+        mm = new Matrix(varMatrix);
+        mm.print(7, 4);
+        System.out.println("--------------------------------------------");
+        System.out.println("特征值矩阵: ");
+        double[][] eigenvalueMatrix = pca.getEigenvalueMatrix(varMatrix);
+        mm = new Matrix(eigenvalueMatrix);
+        mm.print(7, 4);
+        System.out.println("--------------------------------------------");
+        System.out.println("特征向量矩阵: ");
+        double[][] eigenVectorMatrix = pca.getEigenVectorMatrix(varMatrix);
+        mm = new Matrix(eigenVectorMatrix);
+        mm.print(7, 4);
+        System.out.println("--------------------------------------------");
+        Matrix principalMatrix = pca.getPrincipalComponent(primaryArray, eigenvalueMatrix, eigenVectorMatrix);
+        System.out.println("主成分矩阵: ");
+        principalMatrix.print(7, 4);
+
+        System.out.println("--------------------------------------------");
+        System.out.println("降维后的矩阵: ");
+        Matrix resultMatrix = pca.getResult(primaryArray, principalMatrix);
+        resultMatrix.print(7, 4);
+        int c = resultMatrix.getColumnDimension(); //列数
+        int r = resultMatrix.getRowDimension();//行数
+        System.out.println(resultMatrix.getRowDimension() + "行," + resultMatrix.getColumnDimension() + "列");
     }
 
     @Test
-
     public void test() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("", "");
-        service.PXGFX(null, 1, 1);
+        DoubleStreamEx d = DoubleStreamEx.of(new Double[]{1D, 2D, 3D, 4D, 5D});
+        d.pairMap((x, y) -> x + y).forEach(x -> System.out.println(x));
     }
 
 }

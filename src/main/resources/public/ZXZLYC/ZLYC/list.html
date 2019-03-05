@@ -1,0 +1,29 @@
+<div>
+    <h1 class="page-header">
+        在线质量预测>质量预测
+    </h1>
+    <div class=" col-lg-3">
+        <button class="btn btn-info form-control" ng-click="yuce();">实时预测</button>
+    </div>
+    <table class="table-bordered table-hover table small">
+        <thead>
+        <tr>
+            <th class="col-lg-1">选择</th>
+            <th>工序</th>
+            <th>工位</th>
+            <th>当前炉号</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="col in cols">
+            <td ng-click="radioClick($index);"><input name="radio" ng-model="radio" ng-value="$index" type="radio"
+                                                      value="{{$index}}"></td>
+            <td ng-click="radioClick($index);">{{col.GX}}</td>
+            <td ng-click="radioClick($index);">{{col.GW}}</td>
+            <td ng-click="radioClick($index);"><input ng-click="showLH(col)" ng-disabled="col.LH" ng-model="col.LH"
+                                                      placeholder="显示当前炉号"></input></td>
+            <td ng-click="radioClick($index);">{{col.ZT}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

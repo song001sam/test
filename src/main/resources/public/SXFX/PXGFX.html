@@ -1,6 +1,6 @@
 <div ng-init="init()">
     <h1 class="page-header">
-        智能分析>数学分析>相关性分析
+        过程质量分析>质量缺陷分析（单工序分析）>偏相关分析
     </h1>
     <ng-include ng-controller="headerController" src="'header/header.html'"></ng-include>
     <h5 class="page-header"></h5>
@@ -89,7 +89,7 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th ng-repeat="col in outCols">{{col.value}}</th>
+                    <th ng-repeat="col in inCols">{{col.value}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -97,13 +97,22 @@
                         ng-init="outerIndex = $index;" ng-repeat="col  in inCols">
                     <td>{{col.value}}</td>
                     <td ng-class="{'bg-info':data.PValue[outerIndex][$index]<=0.05&&data.PValue[outerIndex][$index]>=-0.05}"
-                        ng-repeat="doub in outCols track by $index" style="white-space:nowrap">
-                        {{data.Correlation[outerIndex][$index]|numFormat:4}}
+                        ng-repeat="doub in data.PXGFX[outerIndex] track by $index" style="white-space:nowrap">
+                        {{doub|numFormat:6}}
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <span class="">蓝色标记为显著性检验通过，可以否定无效假设</span>
+            <span class="">
+<div>
+【分析结果说明】：
+</div>
+        <div>
+        相关系数值为 正，表示两者之间关系为正作用；        相关系数值为 负，表示两者之间关系为反作用；
+</div><div>
+        正值越大表示原因变量与结果变量之间的正作用强度越大，负值越大表示原因变量与结果变量之间反作用强度越大。
+                </div>
+</span>
         </div>
     </div>
 </div>

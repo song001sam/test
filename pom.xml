@@ -170,7 +170,16 @@
             <artifactId>jama</artifactId>
             <version>1.0.3</version>
         </dependency>
-
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.6.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>

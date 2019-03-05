@@ -22,4 +22,12 @@ public interface MathService {
     double getOneWayAnovaPValue(Collection<double[]> doubles);
 
     double[][] getPXG(double[][] doubles);
+
+    double getSum(double[] arr);
+
+    double getMedian(double[] arr);
+
+    double getSkewness(double[] arr);
+
+    double getKurtosis(double[] arr);
 }

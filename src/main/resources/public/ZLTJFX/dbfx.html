@@ -1,0 +1,252 @@
+<div ng-init="init();">
+    <h1 class="page-header">系统分析组件>质量统计分析>对比分析</h1>
+    <ng-include ng-controller="headerController" src="'header/header.html'"></ng-include>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>第一步：分类变量 和 统计变量选择</h4>
+            <div class="row">
+                <div class="col-lg-5 pre-scrollable">
+                    <table class=" table-bordered table-hover table small"
+                           ng-init="initCols();">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-6">字段名称</th>
+                            <!--<th class="col-lg-6">含义</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)"
+                            ng-repeat="col in cols">
+                            <!--<td>{{col.key}}</td>-->
+                            <td style="white-space: nowrap">{{col.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <button class="btn-primary btn-xs" ng-click="addUp();"
+                                    style="white-space: nowrap;margin-bottom: 3px">选择>>
+                            </button>
+                            <button class="btn-primary btn-xs" ng-click="delUp();"
+                                    style="white-space: nowrap"><
+                                <取消
+                            </button>
+                        </div>
+                        <div class="col-lg-8">
+                            <b>对比类别字段</b>
+                            <table class="table-bordered table-hover table small">
+                                <thead>
+                                <tr>
+                                    <th>字段名称</th>
+                                    <!--<th>含义</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)"
+                                    ng-repeat="col in upCols">
+                                    <!-- <td>{{col.key}}</td>-->
+                                    <td style="white-space: nowrap">{{col.value}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <button class="btn-primary btn-xs" ng-click="addDown();"
+                                    style="white-space: nowrap;margin-bottom: 3px">选择>>
+                            </button>
+                            <button class="btn-primary btn-xs" ng-click="delDown();"
+                                    style="white-space: nowrap"><
+                                <取消
+                            </button>
+                        </div>
+                        <div class="col-lg-8">
+                            <b>对比字段</b>
+                            <table class="table-bordered table-hover table small">
+                                <thead>
+                                <tr>
+                                    <th>字段名称</th>
+                                    <!--<th>含义</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)"
+                                    ng-repeat="col in downCols">
+                                    <!--<td>{{col.key}}</td>-->
+                                    <td style="white-space: nowrap">{{col.value}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-8">
+                <h4>第二步：设定分类字段分类区间</h4>
+            </div>
+            <div class="col-lg-offset-8" style="margin-bottom: 2px">
+                <button class="btn btn-primary input-sm" ng-click="copyRow();"
+                        type="button">复制行
+                </button>
+                <button class="btn btn-danger input-sm" ng-click="delRow();"
+                        type="button">删除行
+                </button>
+            </div>
+            <table class="table-bordered table-hover table small">
+                <thead>
+                <tr>
+                    <th>字段名称</th>
+                    <th>类型</th>
+                    <th>区间最小值</th>
+                    <th>区间最大值</th>
+                    <th>字段值范围</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="col in colTables">
+                <tr ng-class='{info: chkCol(col)}'
+                    ng-click="chkTr(col)" ng-if="col.status!='update'  && col.dataType.code!='1'">
+                    <td>{{col.value}}</td>
+                    <td ng-init="valueStr = initSelect($index)">{{valueStr}}</td>
+                    <td>{{col.min}}</td>
+                    <td>{{col.max}}</td>
+                    <td>-</td>
+                    <td><a ng-click="toUpdate([$index])">修改</a></td>
+                </tr>
+                <tr ng-class='{info: chkCol(col)}'
+                    ng-click="chkTr(col)" ng-if="col.status!='update'  && col.dataType.code=='1'">
+                    <td>{{col.value}}</td>
+                    <td ng-init="valueStr = initSelect($index)">{{valueStr}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{col.lsdata}}</td>
+                    <td><a ng-click="toUpdate([$index])">修改</a></td>
+                </tr>
+                <tr ng-if="col.status=='update' && col.dataType.code=='0'">
+                    <td>{{col.value}}</td>
+                    <td><select ng-model="colTables[$index].dataType"
+                                ng-options="x.value for x in TypeList"></select></td>
+                    <td><input ng-model="colTables[$index].min"
+                               style="width: 80px"/></td>
+                    <td><input ng-model="colTables[$index].max"
+                               style="width: 80px"/></td>
+                    <td>-</td>
+                    <td><a ng-click="save([$index])">保存</a></td>
+                </tr>
+                <tr ng-if="col.status=='update' && col.dataType.code=='1'">
+                    <td>{{col.value}}</td>
+                    <td><select ng-model="colTables[$index].dataType"
+                                ng-options="x.value for x in TypeList"></select></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><input ng-model="colTables[$index].lsdata"
+                               style="width: 80px"/> <a
+                            ng-click="toChoose([$index])">选择</a></td>
+                    <td><a ng-click="save([$index])">保存</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <hr class="col-lg-12">
+        <div class="col-lg-12">
+            <div class="col-lg-5">
+                <h4>第三步：生成分类组合并选择对比分类</h4>
+            </div>
+            <div class="col-lg-7" style="margin-bottom: 2px">
+                <button class="btn btn-primary input-sm" ng-click="getFLZH();">生成分类组合</button>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="col-lg-5">
+                <b>分类变量组合列表</b>
+                <table class="table-bordered table-hover table small">
+                    <tbody ng-repeat="cols in colThree1">
+                    <tr ng-class='{info: chkCol(cols)}' ng-click="chkTr(cols)">
+                        <td ng-repeat="col in cols">{{col.text}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-2">
+                <button class="col-lg-12 btn-primary btn-xs" ng-click="addThree();"
+                        style="white-space: nowrap;margin-bottom: 3px">选择>>
+                </button>
+                <button class="col-lg-12 btn-primary btn-xs" ng-click="delThree();"
+                        style="white-space: nowrap"><
+                    <取消
+                </button>
+            </div>
+            <div class="col-lg-5">
+                <b>入选对比类别</b>
+                <table class="table-bordered table-hover table small">
+                    <tbody ng-repeat="cols in colThree2">
+                    <tr ng-class='{info: chkCol(cols)}' ng-click="chkTr(cols)">
+                        <td><b>类别{{$index+1}}</b></td>
+                        <td ng-repeat="col in cols">{{col.text}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <b class="col-lg-2">说明</b>
+            <div class="col-lg-10">
+                1.只能选择<span style="color: red">两个</span>对比类别；<br>
+                2.对比分析之前最好将对比字段标准化，以免产生无意义的结果。
+            </div>
+        </div>
+        <hr>
+        <div class="col-lg-12">
+            <a id="dlink" style="display: none;"></a>
+            <!--导出excel-->
+            <button class="btn input-sm btn-info" ng-click="fenxi();">分析</button>
+            <button class="btn input-sm btn-info" ng-click="exportToExcel('#tableExcel')"
+                    ng-show="jisuanShow">保存分析结果
+            </button>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-12" ng-show="jisuanShow">
+                <b>类别均值</b>
+            </div>
+            <br>
+            <div id="echarts1" style="height: 400px"></div>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-12" ng-show="jisuanShow">
+                <b>组间距离（类均值之差的绝对值）</b>
+            </div>
+            <br>
+            <div id="echarts2" style="height: 400px"></div>
+        </div>
+        <div class="col-lg-6">
+            <table class="table-bordered table-hover table small" id="tableExcel"
+                   ng-show="jisuanShow">
+                <thead>
+                <tr>
+                    <th>对比变量</th>
+                    <th>类别均值-类别1</th>
+                    <th>类别均值-类别2</th>
+                    <th>组间距离（类均值之差的绝对值）</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="col in downCols">
+                <tr>
+                    <td>{{col.value}}</td>
+                    <td>{{echartList1[$index+1][1]}}</td>
+                    <td>{{echartList1[$index+1][2]}}</td>
+                    <td>{{echartList2y[$index]}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

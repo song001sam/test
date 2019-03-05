@@ -1,0 +1,66 @@
+<div>
+    <h1 class="page-header">
+        工艺标准库管理>连铸工艺标准>子表2
+    </h1>
+
+    <div class="row">
+        <div class="col-lg-2">材质代码：</div>
+        <div class="col-lg-2">
+            <input class="form-control input-sm" ng-model="fmatcode" ng-required="false" type="text"/>
+        </div>
+        <div class="col-lg-2">连铸机号：</div>
+        <div class="col-lg-2">
+            <input class="form-control input-sm" ng-model="cast_no" ng-required="false" type="text"/>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary input-sm" ng-click="doSearch();" type="button">查询</button>
+            <button class="btn btn-primary input-sm" ng-click="doClear();" type="button">清除</button>
+        </div>
+    </div>
+    <hr>
+    <div class="col-lg-12">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <!--<th>行键</th>-->
+                <th>材质代码</th>
+                <th>板坯厚度</th>
+                <th>连铸机号</th>
+                <th>宽面流量</th>
+                <th>窄面流量</th>
+                <th>水表号</th>
+                <th>结晶器震荡曲线号</th>
+                <th>目标拉速</th>
+                <th>钢种代码</th>
+                <th>钢种名称</th>
+                <th>备注</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="model in list">
+
+            <tr ng-click="rowClick($index)">
+                <!--<td>{{model.rowkey}}</td>-->
+                <td>{{model.fmatcode}}</td>
+                <td> {{model.slab_thk}}</td>
+                <td>{{model.cast_no}}</td>
+                <td>{{model.wid_sur_flow1}}</td>
+                <td>{{model.nar_sru_flow1}}</td>
+                <td>{{model.meter_no1}}</td>
+                <td>{{model.osccur_no}}</td>
+                <td>{{model.p_sum}}</td>
+                <td>{{model.stl_grd}}</td>
+                <td>{{model.stl_grd_name}}</td>
+                <td>{{model.remarks}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="pull-right">
+            <ul boundary-link-numbers="true" boundary-links="true" class="pagination-sm" first-text="第一页"
+                force-ellipses="true" items-per-page="5" last-text="最后页" max-size="10"
+                next-text="下一页" ng-change="page()" ng-model="currentPage" previous-text="上一页"
+                total-items="totalItems"
+                uib-pagination></ul>
+        </div>
+    </div>
+</div>

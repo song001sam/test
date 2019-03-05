@@ -3,7 +3,7 @@ drop table t_Sys_Role;
 drop table t_Sys_Permission;
 drop table t_Sys_User_2_Role;
 drop table t_Sys_Role_2_Permission;
-create table t_Sys_User(id INT NOT NULL,userCode varchar(30),userName varchar(30),password varchar (60) ,salt varchar(30),PRIMARY KEY ( id ));
+create table t_Sys_User(id INT NOT NULL AUTO_INCREMENT,userCode varchar(30),userName varchar(30),password varchar (60) ,salt varchar(30),PRIMARY KEY ( id ));
 create table t_Sys_Role(id INT NOT NULL,roleCode varchar(30),roleName varchar(30),primary key (id));
 create table t_Sys_Permission(id INT NOT NULL,pName varchar(30),pType varchar(30),pCode varchar(30),url varchar(255),sort varchar(30),pid int NOT NULL,primary key (id));
 create table t_Sys_User_2_Role(uid int,rid int);

@@ -10,6 +10,10 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import Jama.Matrix;
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.linear.RealVector;
 
 /*
  * 算法步骤:
@@ -22,7 +26,7 @@ import Jama.Matrix;
  */
 public class PCAUtils {
 
-    private static final double threshold = 0.95;// 特征值阈值
+    private static final double threshold = 0.85;// 特征值阈值
 
     /**
      * 使每个样本的均值为0
@@ -43,8 +47,13 @@ public class PCAUtils {
             average[i] = sum[i] / n;
         }
         for (int i = 0; i < m; i++) {
+            double bzc = 0;//记录每一列标准差
             for (int j = 0; j < n; j++) {
-                averageArray[j][i] = primary[j][i] - average[i];
+                bzc += Math.pow(primary[j][i] - average[i], 2);
+            }
+            bzc = Math.sqrt(bzc / (n - 1));
+            for (int j = 0; j < n; j++) {
+                averageArray[j][i] = (primary[j][i] - average[i]) / bzc;
             }
         }
         return averageArray;
@@ -82,10 +91,25 @@ public class PCAUtils {
         Matrix A = new Matrix(matrix);
         // 由特征值组成的对角矩阵,eig()获取特征值
 //      A.eig().getD().print(10, 6);
+
         double[][] result = A.eig().getD().getArray();
         return result;
     }
 
+    /**
+     * 求特征值数组
+     *
+     * @param matrix 协方差矩阵
+     * @return result 向量的特征值二维数组矩阵
+     */
+    public double[] getEigenvalueArray(double[][] matrix) {
+        Matrix A = new Matrix(matrix);
+        // 由特征值组成的对角矩阵,eig()获取特征值
+//      A.eig().getD().print(10, 6);
+
+        double[] result = A.eig().getRealEigenvalues();
+        return result;
+    }
     /**
      * 标准化矩阵（特征向量矩阵）
      *
@@ -93,10 +117,14 @@ public class PCAUtils {
      * @return result 标准化后的二维数组矩阵
      */
     public double[][] getEigenVectorMatrix(double[][] matrix) {
-        Matrix A = new Matrix(matrix);
-//      A.eig().getV().print(6, 2);
-        double[][] result = A.eig().getV().getArray();
-        return result;
+        RealMatrix m = new Array2DRowRealMatrix(matrix);
+        EigenDecomposition ed = new EigenDecomposition(m);
+        return ed.getV().getData();
+
+//        Matrix A = new Matrix(matrix);
+////      A.eig().getV().print(6, 2);
+//        double[][] result = A.eig().getV().getArray();
+//        return result;
     }
 
     /**

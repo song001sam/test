@@ -52,8 +52,17 @@ public class XSMXController {
         return service.FCFX(map);
     }
 
+    @RequestMapping(value = "/XSMX/ZYFX", method = RequestMethod.POST)
+    public Map<String, double[][]> ZYFX(@RequestBody Map<String, Object> map) {
+        //获取输入输出列名
+
+        List<String> colInName = ((List<Map<String, String>>) map.get("colIn")).stream().map(x -> x.get("key")).collect(Collectors.toList());
+        map.put("colNames", colInName);
+        // 查询结果
+        return service.ZYFX(map, colInName.size());
+    }
     @RequestMapping(value = "/XSMX/PXGFX", method = RequestMethod.POST)
-    public Map<String, Double> PXGFX(@RequestBody Map<String, Object> map) {
+    public Map<String, Double[][]> PXGFX(@RequestBody Map<String, Object> map) {
         //获取输入输出列名
         List<String> colName = new ArrayList<>();
         List<String> colInName = ((List<Map<String, String>>) map.get("colIn")).stream().map(x -> x.get("key")).collect(Collectors.toList());
@@ -61,8 +70,10 @@ public class XSMXController {
         colInName.forEach(x -> colName.add(x));
         colIOutName.forEach(x -> colName.add(x));
         map.put("colNames", colName);
+        Map<String, Double[][]> returnMap = new HashMap<>();
+        returnMap.put("PXGFX", service.PXGFX(map, colInName.size(), colIOutName.size()));
         // 查询结果
-        return service.PXGFX(map, colInName.size(), colIOutName.size());
+        return returnMap;
     }
     @RequestMapping(value = "/XSMX/colNameAndComment/{tableName}", method = RequestMethod.GET)
     public Map<String, String> colNameAndComment(@PathVariable String tableName) {
@@ -83,4 +94,13 @@ public class XSMXController {
     public List<String> colName() {
         return service.GZList();
     }
+
+//    private void input (Map<String, Object> map){
+//        List<String> colName = new ArrayList<>();
+//        List<String> colInName = ((List<Map<String, String>>) map.get("colIn")).stream().map(x -> x.get("key")).collect(Collectors.toList());
+//        List<String> colIOutName = ((List<Map<String, String>>) map.get("colOut")).stream().map(x -> x.get("key")).collect(Collectors.toList());
+//        colInName.forEach(x -> colName.add(x));
+//        colIOutName.forEach(x -> colName.add(x));
+//        map.put("colNames", colName);
+//    }
 }

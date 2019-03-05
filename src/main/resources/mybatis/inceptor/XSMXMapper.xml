@@ -8,15 +8,65 @@
         </foreach>
         from ${tableName}
         <where>
+
             <foreach collection="colNames" item="colName" separator=" and ">
                 ${colName} is not null
             </foreach>
 
             <if test="GZ != null and GZ != ''">
-                stl_grd_cd = #{GZ}
+                and stl_grd_cd = #{GZ}
             </if>
         </where>
 
+    </select>
+    <select id="selectListWhere" resultType="java.util.HashMap">
+        select
+        <foreach collection="colNames" item="colName" separator=",">
+            ${colName}
+        </foreach>
+        from ${tableName}
+        <where>
+            <!--<foreach collection="colNames" item="colName" separator=" and ">
+                ${colName} is not null
+            </foreach>-->
+            <if test="sqlStr != null and sqlStr != '' ">
+                ${sqlStr}
+            </if>
+            <if test="GZ != null and GZ != ''">
+                and stl_grd_cd = #{GZ}
+            </if>
+        </where>
+
+    </select>
+    <select id="selectListGroupBy" resultType="com.unissoft.test.entity.Xsmx_box">
+        select
+        COLLECT_LIST(${colName}) a,${groupColName} b
+        from ${tableName}
+        <where>
+            ${colName} is not null
+        </where>
+        group by ${groupColName}
+    </select>
+    <!--<select id="selectListMax" resultType="java.util.HashMap">
+        SELECT  min(${colName}) min,max(${colName}) max
+        from ${tableName}
+        <where>
+            ${colName} is not null
+        </where>
+    </select>-->
+    <select id="selectCount" resultType="java.lang.String">
+        SELECT count(*)
+        from ${tableName}
+        <where>
+            ${whereSql}
+            <if test="GZ != null and GZ != ''">
+                and stl_grd_cd = #{GZ}
+            </if>
+        </where>
+    </select>
+    <select id="selectListDistinct" resultType="java.lang.String">
+        SELECT  DISTINCT(${colName})
+        from ${tableName}
     </select>
     <select id="selectColName" resultType="java.util.HashMap">
       use system;
@@ -24,6 +74,6 @@
       use bdia;
     </select>
     <select id="GZList" resultType="java.lang.String">
-        select stl_grd_desc from ai_fmatcode_orc;
+        select stl_grd_name from stl_grd;
     </select>
 </mapper>

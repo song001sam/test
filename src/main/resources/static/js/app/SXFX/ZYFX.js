@@ -1,6 +1,6 @@
 define([
     'require',
-    './header',
+    '../header/header',
     '../app',
     'angular'
 ], function (require, header, app, angular) {
@@ -14,14 +14,28 @@ define([
             $scope.outCols = [];
             $scope.data = {};
         }
-        $scope.$on('initCols', function (e, m) {
-            let i = 0;
-            angular.forEach(m, function (value, key) {
-                i++;
-                $scope.cols.push({"key": key, "value": value, "sort": i});
-            })
+        $scope.$on('GXChange', function (e, m) {
+            $scope.GX = m;
+            $http({
+                url: "XSMX/colNameAndComment/" + m,
+                method: "GET"
 
-        })
+            }).then(function (res) {
+                $scope.cols = [];
+                let i = 0;
+                angular.forEach(res.data, function (value, key) {
+                    i++;
+                    $scope.cols.push({"key": key, "value": value, "sort": i});
+                })
+            }, function () {
+
+            });
+
+
+        });
+        $scope.$on('GZChange', function (e, m) {
+            $scope.GZ = m;
+        });
         //数组移除元素方法
         $scope.removeByValue = function (arr, val) {
             for (let i = 0; i < arr.length; i++) {
@@ -45,7 +59,7 @@ define([
         }
         //判断选中列方法
         $scope.chcekColSelected = function (col) {
-            return col == $scope.selectedCol;
+            return col == $scope.selectedCol || col == $scope.selectedColRightIn || col == $scope.selectedColRightOut;
         }
         //增加输入字段方法
         $scope.addIn = function () {
@@ -60,14 +74,16 @@ define([
             $scope.cols.sort((x, y) => x.sort - y.sort)
             $scope.selectedColRightIn = undefined;
         }
-        $scope.show = function () {
+        $scope.show = function (flag) {
             $http({
-                url: "XSMX/XGXFX",
+                url: "XSMX/ZYFX",
                 method: "post",
                 data: {
-                    tableName: $scope.GX.code,
+                    tableName: $scope.GX,
                     colIn: $scope.inCols,
-                    colOut: $scope.outCols
+                    colOut: $scope.outCols,
+                    BZH: flag,
+                    GZ: $scope.GZ
                 }
             }).then(function (res) {
                 $scope.data = res.data;

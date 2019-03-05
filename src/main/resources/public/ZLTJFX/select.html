@@ -1,0 +1,30 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">请选择</h3>
+        <button class="btn btn-primary" ng-click="ok()" type="button">提交</button>
+        <button class="btn btn-warning" ng-click="close()" type="button">关闭</button>
+    </div>
+    <div class="modal-body" id="modal-body"><!--style="height: 350px;"-->
+        <table class=" table-bordered table-hover table small">
+            <thead>
+            <tr>
+                <th class="col-lg-6">选择</th>
+                <th class="col-lg-6">字段值</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)" ng-repeat="col in cols">
+                <td>{{$index}}<input ng-false-value="'No'" ng-model="col.selected" ng-true-value="'Yes'"
+                                     type="checkbox"></td>
+                <td style=" white-space:nowrap">{{col.value}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</div>
+<div ng-init="init();">
+
+</div>

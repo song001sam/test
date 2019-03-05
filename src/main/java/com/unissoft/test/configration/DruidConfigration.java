@@ -21,7 +21,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
-@MapperScan(basePackages = "com.unissoft.test.mapper.mysql", sqlSessionTemplateRef = "mysqlSqlSessionTemplate")
+//@MapperScan(basePackages = "com.unissoft.test.mapper.mysql", sqlSessionTemplateRef = "mysqlSqlSessionTemplate")
 public class DruidConfigration {
     @Value("${spring.datasource.Druid.url}")
     private String dbUrl;

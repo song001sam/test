@@ -1,0 +1,205 @@
+<div ng-init="init();">
+    <h1 class="page-header">系统分析组件>质量统计分析>基本生产数据统计</h1>
+    <ng-include ng-controller="headerController" src="'header/header.html'"></ng-include>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="col-lg-6">
+                <div class="col-lg-12">
+                    <span>候选变量</span>
+                </div>
+                <div class="col-lg-12 pre-scrollable">
+                    <table class="table-bordered table-hover table small">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-6">字段名称</th>
+                            <!--<th class="col-lg-6">含义</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)" ng-repeat="col in cols">
+                            <!--<td>{{col.key}}</td>-->
+                            <td style="white-space: nowrap">{{col.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-4">
+                    <button class=" btn-primary btn-xs" ng-click="addUp();"
+                            style="white-space: nowrap;margin-bottom: 3px">选择>>
+                    </button>
+                    <button class=" btn-primary btn-xs" ng-click="delUp();" style="white-space: nowrap"><
+                        <取消
+                    </button>
+                </div>
+                <div class="col-lg-8 pre-scrollable">
+                    <!-- 					<div class="col-lg-8"> -->
+                    <span>分析变量</span>
+                    <table class="table-bordered table-hover table small" ng-init="initCols();">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-6">字段名称</th>
+                            <!--<th class="col-lg-6">含义</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)" ng-repeat="col in targetCols">
+                            <!--<td>{{col.key}}</td>-->
+                            <td style="white-space: nowrap">{{col.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <!-- 					</div> -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-12">
+                <span>基本生产数据统计信息</span>
+            </div>
+            <div class="col-lg-12 pre-scrollable">
+                <table class="table-bordered table-hover table small" id="jbTable">
+                    <thead>
+                    <tr>
+                        <th style=" white-space:nowrap">变量</th>
+                        <th style=" white-space:nowrap">总记录数</th>
+                        <th style=" white-space:nowrap">均值</th>
+                        <th style=" white-space:nowrap">最大值</th>
+                        <th style=" white-space:nowrap">最小值</th>
+                        <th style=" white-space:nowrap">总和</th>
+                        <th style=" white-space:nowrap">中值</th>
+                        <th style=" white-space:nowrap">方差</th>
+                        <th style=" white-space:nowrap">标准差</th>
+                        <th style=" white-space:nowrap">全距</th>
+                        <th style=" white-space:nowrap">峰度</th>
+                        <th style=" white-space:nowrap">偏度</th>
+                        <th style=" white-space:nowrap">变异系数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="col in countList">
+                        <th>{{col.name}}</th>
+                        <th>{{col.count}}</th>
+                        <th>{{col.avg}}</th>
+                        <th>{{col.max}}</th>
+                        <th>{{col.min}}</th>
+                        <th>{{col.sum}}</th>
+                        <th>{{col.median}}</th>
+                        <th>{{col.variance}}</th>
+                        <th>{{col.standard}}</th>
+                        <th>{{col.range}}</th>
+                        <th>{{col.kurtosis}}</th>
+                        <th>{{col.skewness}}</th>
+                        <th>{{col.variable}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- -->
+
+        <div class="col-lg-12" style="margin-top: 20px;">
+            <div class="col-lg-6">
+                <div class="col-lg-12 checkbox">
+                    <label>
+                        <input ng-change="tjjsChange(tjjs);" ng-disabled="targetCols.length == 0 ? true : false"
+                               ng-model="tjjs" type="checkbox">统计比率计算
+                    </label>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-2">候选字段</div>
+                    <div class="col-lg-2">
+                        <select ng-change="HXChange(HXZD);" ng-init="HXZD = HXZDCols[0]" ng-model="HXZD"
+                                ng-options="x.value for x in HXZDCols"></select>
+                    </div>
+                    <div class="col-lg-2">变量类型</div>
+                    <div class="col-lg-2">
+                        <select ng-change="BLTypeChange(BLType);" ng-disabled="!tjjs" ng-init="BLType = BLTypeList[0]"
+                                ng-model="BLType" ng-options="x.value for x in BLTypeList"></select>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+                <div class="col-lg-12" style="margin-bottom: 2px">
+                    <button class="btn btn-primary input-sm" ng-click="copyRow();">复制行</button>
+                    <button class="btn btn-danger input-sm" ng-click="delRow();">删除行</button>
+                </div>
+                <div class="col-lg-12 pre-scrollable">
+                    <table class="table-bordered table-hover table small" ng-if="BLType.code==1">
+                        <thead>
+                        <tr>
+                            <th>比率名称</th>
+                            <th>子集-最小值</th>
+                            <th>子集-最大值</th>
+                            <th>全集-最小值</th>
+                            <th>全集-最大值</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="col in colTables">
+                        <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)" ng-if="col.status!='update'">
+                            <td>{{col.name}}</td>
+                            <td>{{col.zmin}}</td>
+                            <td>{{col.zmax}}</td>
+                            <td>{{col.qmin}}</td>
+                            <td>{{col.qmax}}</td>
+                            <td><a ng-click="toUpdate([$index])">修改</a></td>
+                        </tr>
+                        <tr ng-if="col.status=='update'">
+                            <td><input ng-model="colTables[$index].name" style="width: 80px"/></td>
+                            <td><input ng-model="colTables[$index].zmin" style="width: 80px"/></td>
+                            <td><input ng-model="colTables[$index].zmax" style="width: 80px"/></td>
+                            <td><input ng-model="colTables[$index].qmin" style="width: 80px"/></td>
+                            <td><input ng-model="colTables[$index].qmax" style="width: 80px"/></td>
+                            <td><a ng-click="save([$index])">保存</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table-bordered table-hover table small" ng-if="BLType.code==2">
+                        <thead>
+                        <tr>
+                            <th>比率名称</th>
+                            <th>子集范围</th>
+                            <th>全集范围</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody ng-repeat="col in colTables">
+                        <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)" ng-if="col.status!='update'">
+                            <td>{{col.name}}</td>
+                            <td>{{col.zscope}}</td>
+                            <td>{{col.qscope}}</td>
+                            <td><a ng-click="toUpdate([$index])">修改</a></td>
+                        </tr>
+                        <tr ng-if="col.status=='update'">
+                            <td><input ng-model="colTables[$index].name" style="width: 80px"/></td>
+                            <td><input ng-click="toChoose([$index],'zscope')" ng-model="colTables[$index].zscope"
+                                       style="width: 80px"/></td>
+                            <td><input ng-click="toChoose([$index],'qscope')" ng-model="colTables[$index].qscope"
+                                       style="width: 80px"/></td>
+                            <td><a ng-click="save([$index])">保存</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-3 col-lg-offset-2">
+                        <button class="btn input-sm btn-info" ng-click="dataCount();">数据统计</button>
+                    </div>
+                    <div class="col-lg-3 col-lg-offset-2">
+                        <button class="btn input-sm btn-info" ng-click="exportToExcel('#jbTable');">保存计算结果</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="col-lg-12">
+                    <span>统计比率结果图形展示</span>
+                </div>
+                <div id="echarts1" style="height: 400px"></div>
+            </div>
+        </div>
+    </div>
+</div>

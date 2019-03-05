@@ -9,7 +9,9 @@ define(function (require, exports, module) {
     require('ngAnimate');
     require('ngSanitize');
     require('datetimepicker');
-    var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.pagination', 'ngRoute', 'ngTouch', 'ngAnimate', 'ngSanitize', 'ui.bootstrap.datetimepicker']);
+    require('angularlocale');
+    require('wui-date');
+    var app = angular.module('app', ['ui.router', 'ui.bootstrap', 'ui.bootstrap.pagination', 'ngRoute', 'ngTouch', 'ngAnimate', 'ngSanitize', 'ui.bootstrap.datetimepicker', 'ngLocale', 'wui.date']);
 
     // initialze app module for async loader
     asyncLoader.configure(app);

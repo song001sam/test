@@ -1,7 +1,11 @@
 package com.unissoft.test.mapper.mysql;
 
+import com.unissoft.test.entity.SysRole;
+import com.unissoft.test.entity.SysUser;
 import com.unissoft.test.entity.TSysRole;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface TSysRoleMapper {
@@ -52,4 +56,6 @@ public interface TSysRoleMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(TSysRole record);
+
+    List<SysRole> selectList();
 }

@@ -1,0 +1,196 @@
+<div>
+    <h1 class="page-header">
+        过程质量追溯>成品追溯
+    </h1>
+    <div class="row">
+        <div class="col-lg-1">卷号/捆号</div>
+        <div class="col-lg-2"><input class="form-control" ng-model="kunhao" type="text"></div>
+        <div class="col-lg-1">
+            <button class="btn btn-default" ng-click="query()">查询</button>
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control input-sm" editable="false" ng-model="luhao"
+                    ng-options="x.name for x in HHOption">
+                <option></option>
+                <!--<option value="bof_lance_height" >转炉-氧枪高度</option>
+                <option value="bof_bof_angle" >转炉-转炉角度</option>
+                <option value="bof_o2_flow" >转炉-顶吹氧气流量</option>
+                <option value="lf_lf1ar1flow">LF-1#钢包1#底吹AR流速</option>
+                <option value="lf_lf1ar2flow">LF-1#钢包2#底吹AR流速</option>
+                <option value="lf_lfpritotengy">LF-有功电度</option>
+                <option value="lf_lfsectotengy">LF-无功电度</option>
+                <option value="ccm_tundish_weight">连铸-中间罐净重t</option>
+                <option value="ccm_superheat">连铸-过热度</option>-->
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-default" ng-click="queryByHeatId()">根据炉号查询</button>
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control input-sm" editable="false" ng-model="banpi"
+                    ng-options="x.code for x in BPOption">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-default" ng-click="queryBySlabId()">根据板坯号查询</button>
+        </div>
+    </div>
+    <hr>
+
+    <div ng-hide="hide">
+        <h4>搜索详情</h4>
+        <table class='table'>
+            <tr>
+                <th>卷号/捆号</th>
+                <td id="plate_id">{{plate_id}}</td>
+                <th>支数</th>
+                <td id="zhishu">{{zhishu}}</td>
+                <th>成品类型</th>
+                <td id="plate_type">{{plate_type}}</td>
+
+            </tr>
+            <tr>
+                <th>轧制计划号</th>
+                <td id="roll_sch_id">{{roll_sch_id}}</td>
+                <th>检验批号</th>
+                <td id="smp_lot">{{smp_lot}}</td>
+                <th>板坯号</th>
+                <td id="slab_id">{{slab_id}}</td>
+
+            </tr>
+            <tr>
+                <th>炉号</th>
+                <td id="heat_id">{{heat_id}}</td>
+                <th>物料状态</th>
+                <td id="status">{{Status}}</td>
+                <th>前物料状态</th>
+                <td id="pre_status">{{pre_status}}</td>
+
+
+            </tr>
+            <tr>
+                <th>实际宽度</th>
+                <td id="plate_act_wth">{{plate_act_wth}}</td>
+                <th>实际长度</th>
+                <td id="plate_act_lth">{{plate_act_lth}}</td>
+                <th>检斤重量</th>
+                <td id="plate_wgt">{{plate_wgt}}</td>
+
+            </tr>
+            <tr>
+                <th>订单重量</th>
+                <td id="plate_ord_wgt">{{plate_ord_wgt}}</td>
+                <th>生产订单</th>
+                <td id="prod_id">{{prod_id}}</td>
+                <th>订单材/余材标志</th>
+                <td id="ord_fl">{{ord_fl}}</td>
+
+            </tr>
+            <tr>
+                <th>生产班别</th>
+                <td id="crew">{{crew}}</td>
+                <th>是否试样板</th>
+                <td id="smp_fl">{{smp_fl}}</td>
+                <th>综合判定时间</th>
+                <td id="judge_time">{{judge_time}}</td>
+
+            </tr>
+            <tr>
+                <th>初判等级</th>
+                <td id="jun_check_lvl">{{jun_check_lvl}}</td>
+                <th>终判等级</th>
+                <td id="prod_grd">{{prod_grd}}</td>
+                <th>生产时间</th>
+                <td id="prod_time">{{prod_time}}</td>
+            </tr>
+            <tr>
+                <th>更新日期</th>
+                <td id="upd_date">{{upd_date}}</td>
+                <th>更新人员</th>
+                <td id="upd_emp_id">{{upd_emp_id}}</td>
+                <th>备注</th>
+                <td id="memo">{{memo}}</td>
+            </tr>
+            <tr>
+
+                <th>理论重量</th>
+                <td id="cal_wgt">{{cal_wgt}}</td>
+                <th>原钢种</th>
+                <td id="org_stl_grd_cd">{{org_stl_grd_cd}}</td>
+                <th>现材质代码</th>
+                <td id="mat_qul_cd">{{mat_qul_cd}}</td>
+            </tr>
+            <tr>
+                <th>原材质代码</th>
+                <td id="org_mat_qul_cd">{{org_mat_qul_cd}}</td>
+                <th>现物料编码/现存货编码</th>
+                <td id="matcode">{{matcode}}</td>
+                <th>实际厚度</th>
+                <td id="plate_act_thk">{{plate_act_thk}}</td>
+            </tr>
+            <tr>
+                <th>规格</th>
+                <td id="std">{{std}}</td>
+                <th>生产班次</th>
+                <td id="shift">{{shift}}</td>
+                <th>外观等级</th>
+                <td id="surf_grd">{{surf_grd}}</td>
+            </tr>
+            <tr>
+
+                <th>执行标准号</th>
+                <td id="std_spec">{{std_spec}}</td>
+                <th>录入程序</th>
+                <td id="ins_pgmid">{{ins_pgmid}}</td>
+                <th>录入时间</th>
+                <td id="ins_time">{{ins_time}}</td>
+            </tr>
+            <tr>
+                <th>合同号</th>
+                <td id="contract_no">{{contract_no}}</td>
+                <th>销售计划号</th>
+                <td id="sale_no">{{sale_no}}</td>
+                <th>销售订单行项目</th>
+                <td id="sale_rno">{{sale_rno}}</td>
+            </tr>
+            <tr>
+                <th>钩号</th>
+                <td id="pothook">{{pothook}}</td>
+                <th>月末上传标识</th>
+                <td id="month_flag">{{month_flag}}</td>
+                <th>直条验号</th>
+                <td id="thk_add">{{thk_add}}</td>
+            </tr>
+            <tr>
+                <th>乱尺标记</th>
+                <td id="rs_fl">{{rs_fl}}</td>
+                <th>调度单号</th>
+                <td id="dispatch_id">{{dispatch_id}}</td>
+                <th>确认标记</th>
+                <td id="plate_bj">{{plate_bj}}</td>
+            </tr>
+            <tr>
+                <th>存货名称</th>
+                <td id="matname">{{matname}}</td>
+                <th>重量写入人</th>
+                <td id="wgt_empid">{{wgt_empid}}</td>
+                <th>重量写入时间</th>
+                <td id="wgt_time">{{wgt_time}}</td>
+            </tr>
+            <tr>
+                <th>标准名称</th>
+                <td id="std_name">{{std_name}}</td>
+                <th>计量标记</th>
+                <td id="wgt_fl">{{wgt_fl}}</td>
+                <th>探伤结果</th>
+                <td id="w_pro">{{w_pro}}</td>
+            </tr>
+            <tr>
+                <th>现钢种</th>
+                <td colspan="5" id="stl_grd_cd">{{stl_grd_cd}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

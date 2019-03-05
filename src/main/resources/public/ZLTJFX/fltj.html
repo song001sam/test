@@ -1,0 +1,187 @@
+<div ng-init="init();">
+    <h1 class="page-header">系统分析组件>质量统计分析>分类统计对比分析</h1>
+    <ng-include ng-controller="headerController" src="'header/header.html'"></ng-include>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-6">
+            <span>数据字段</span>
+            <div class="row">
+                <div class="col-lg-5 pre-scrollable">
+                    <table class=" table-bordered table-hover table small">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-6">字段名称</th>
+                            <!--<th class="col-lg-6">含义</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)" ng-repeat="col in cols">
+                            <!--<td>{{col.key}}</td>-->
+                            <td style="white-space: nowrap">{{col.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <button class="btn-primary btn-xs" ng-click="addUp();"
+                                    style="white-space: nowrap;margin-bottom: 3px">选择>>
+                            </button>
+                            <button class="btn-primary btn-xs" ng-click="delUp();" style="white-space: nowrap"><
+                                <取消
+                            </button>
+                        </div>
+                        <div class="col-lg-8">
+                            <span>分类变量</span>
+                            <table class="table-bordered table-hover table small"
+                                   ng-init="initCols();">
+                                <thead>
+                                <tr>
+                                    <th>字段名称</th>
+                                    <!--<th>含义</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)"
+                                    ng-repeat="col in upCols">
+                                    <!--<td>{{col.key}}</td>-->
+                                    <td style="white-space: nowrap">{{col.value}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <button class=" btn-primary btn-xs" ng-click="addDown();"
+                                    style="white-space: nowrap;margin-bottom: 3px">选择>>
+                            </button>
+                            <button class=" btn-primary btn-xs" ng-click="delDown();" style="white-space: nowrap"><
+                                <取消
+                            </button>
+                        </div>
+                        <div class="col-lg-8">
+                            <span>统计变量</span>
+                            <table class="table-bordered table-hover table small"
+                                   ng-init="initCols();">
+                                <thead>
+                                <tr>
+                                    <th>字段名称</th>
+                                    <!--<th>含义</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-class='{info: chkCol(col)}' ng-click="chkTr(col)"
+                                    ng-repeat="col in downCols">
+                                    <!--<td>{{col.key}}</td>-->
+                                    <td style="white-space: nowrap">{{col.value}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <a id="dlink" style="display:none;"></a><!--excel-->
+                        <div class="col-lg-3 col-lg-offset-2">
+                            <button class="btn input-sm btn-info" ng-click="jisuan();">计算</button>
+                        </div>
+                        <div class="col-lg-5 col-lg-offset-1">
+                            <button class="btn input-sm btn-info" ng-click="exportToExcel('#tableExcel')">保存分析结果
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-offset-8" style="margin-bottom: 2px">
+                <button class="btn btn-primary input-sm" ng-click="copyRow();" type="button">复制行</button>
+                <button class="btn btn-danger input-sm" ng-click="delRow();" type="button">删除行</button>
+            </div>
+            <table class="table-bordered table-hover table small"
+                   ng-init="initCols();">
+                <thead>
+                <tr>
+                    <th>字段名称</th>
+                    <th>类型</th>
+                    <th>区间最小值</th>
+                    <th>区间最大值</th>
+                    <th>字段值范围</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="col in colTables">
+                <tr ng-class='{info: chkCol(col)}'
+                    ng-click="chkTr(col)" ng-if="col.status!='update'  && col.dataType.code!='1'">
+                    <td>{{col.value}}</td>
+                    <td ng-init="valueStr = initSelect($index)">{{valueStr}}</td>
+                    <td>{{col.min}}</td>
+                    <td>{{col.max}}</td>
+                    <td>-</td>
+                    <td><a ng-click="toUpdate([$index])">修改</a></td>
+                </tr>
+                <tr ng-class='{info: chkCol(col)}'
+                    ng-click="chkTr(col)" ng-if="col.status!='update'  && col.dataType.code=='1'">
+                    <td>{{col.value}}</td>
+                    <td ng-init="valueStr = initSelect($index)">{{valueStr}}</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>{{col.lsdata}}</td>
+                    <td><a ng-click="toUpdate([$index])">修改</a></td>
+                </tr>
+                <tr ng-if="col.status=='update' && col.dataType.code=='0'">
+                    <td>{{col.value}}</td>
+                    <td><select ng-model="colTables[$index].dataType"
+                                ng-options="x.value for x in TypeList"></select></td>
+                    <td><input ng-model="colTables[$index].min"
+                               style="width: 80px"/></td>
+                    <td><input ng-model="colTables[$index].max"
+                               style="width: 80px"/></td>
+                    <td>-</td>
+                    <td><a ng-click="save([$index])">保存</a></td>
+                </tr>
+                <tr ng-if="col.status=='update' && col.dataType.code=='1'">
+                    <td>{{col.value}}</td>
+                    <td><select ng-model="colTables[$index].dataType" ng-options="x.value for x in TypeList"></select>
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><input ng-model="colTables[$index].lsdata" style="width: 80px"/> <a
+                            ng-click="toChoose([$index])">选择</a></td>
+                    <td><a ng-click="save([$index])">保存</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr class="col-lg-12">
+        <div class="col-lg-6">
+            <table class="table-bordered table-hover table small" id="tableExcel"
+                   ng-if="jisuanShow" ng-init="initCols();">
+                <thead>
+                <tr>
+                    <th ng-repeat="col in upCols"></th>
+                    <th ng-repeat="col in colList">{{col.text}}</th>
+                    <th>序号</th>
+                </tr>
+                </thead>
+                <tbody ng-repeat="col in retTables">
+                <tr>
+                    <td ng-repeat="textstr in col.rowList">{{textstr}}</td>
+                    <td ng-repeat="ent in colList">{{col.colsValue[ent.text]}}</td>
+                    <td>{{$index+1}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <div class="col-lg-12" ng-show="jisuanShow">
+                可选统计列<select ng-change="echartsshow()" ng-model="selectedName"
+                             ng-options="x.text for x in colList"></select>
+            </div>
+            <br>
+            <div id="echarts1" style="height: 400px"></div>
+        </div>
+    </div>
+</div>

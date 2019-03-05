@@ -125,6 +125,6 @@
     <select id="selectList" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from ts_gthl
+        from ts_Gthl
     </select>
 </mapper>

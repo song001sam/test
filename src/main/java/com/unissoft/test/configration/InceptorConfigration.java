@@ -17,8 +17,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
-@Configuration
-@MapperScan(basePackages = "com.unissoft.test.mapper.inceptor", sqlSessionTemplateRef = "inceptorSqlSessionTemplate")
+//@Configuration
+//@MapperScan(basePackages = "com.unissoft.test.mapper.inceptor", sqlSessionTemplateRef = "inceptorSqlSessionTemplate")
 public class InceptorConfigration {
     @Value("${spring.datasource.Inceptor.url}")
     private String dbUrl;

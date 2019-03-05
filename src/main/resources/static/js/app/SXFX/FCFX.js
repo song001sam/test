@@ -31,7 +31,7 @@ define(['echarts',
 
         });
         $scope.$on('GZChange', function (e, m) {
-            console.info(m);
+            $scope.GZ = m;
         });
         //数组移除元素方法
         $scope.removeByValue = function (arr, val) {
@@ -89,7 +89,8 @@ define(['echarts',
                 method: "post",
                 data: {
                     tableName: $scope.GX,
-                    colIn: $scope.inCols
+                    colIn: $scope.inCols,
+                    GZ: $scope.GZ
                 }
             }).then(function (res) {
                 $scope.data = res.data;

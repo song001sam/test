@@ -1,0 +1,24 @@
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">新增</h3>
+    </div>
+    <div class="modal-body" id="modal-body" style="height: 150px;">
+        <div>
+            <input class="form-control" name="id" ng-model="id" type="hidden">
+            <div class="col-lg-4"><span>姓名</span><input class="form-control" name="name" ng-model="name">
+            </div>
+            <div class="col-lg-8"><span>年龄</span><input class="form-control" name="age" ng-model="age">
+            </div>
+        </div>
+        <div>
+
+            <div class="col-lg-12"><span>说明</span><input class="form-control" name="remark" ng-model="remark">
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()" type="button">提交</button>
+        <button class="btn btn-warning" ng-click="close()" type="button">关闭</button>
+    </div>
+</div>
