@@ -1,0 +1,83 @@
+<div>
+    <h1 class="page-header">
+        产品质量分析>CPK分析>班组CPK对比
+    </h1>
+
+    <div class="row">
+        <div class="col-lg-2">开始日期：</div>
+        <div class="col-lg-2">
+            <div style="vertical-align: middle;">
+                <p class="input-group" style="float: left;">
+                    <input alt-input-formats="altInputFormats" class="form-control input-sm" clear-text="清空"
+                           close-text="关闭" current-text="今天" datepicker-options="dateOptions" is-open="popup1.opened"
+                           ng-model="dt1" ng-required="true" type="text" uib-datepicker-popup="yyyy-MM-dd"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default input-sm" ng-click="open1()" type="button"><i
+                                class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-2">结束日期：</div>
+        <div class="col-lg-2">
+            <div style="vertical-align: middle;">
+                <p class="input-group">
+                    <input class="form-control input-sm" clear-text="清空" close-text="关闭"
+                           current-text="今天" datepicker-options="dateOptions" is-open="popup2.opened"
+                           ng-model="dt2" ng-required="true" type="text" uib-datepicker-popup="yyyy-MM-dd"/>
+                    <span class="input-group-btn">
+            <button class="btn btn-default input-sm" ng-click="open2()" type="button"><i
+                    class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-primary input-sm" ng-click="doSearch();" type="button">查询</button>
+        </div>
+    </div>
+    <hr>
+    <!--echarts-->
+    <div id="echartsOne" style="width:45%; height: 350px;float:left"></div>
+    <div id="cpk_menu" style="width:48%;font-size:12px; height: 350px;float:left;">
+        <ul id="cpk_ul" style="width:100%;list-style-type:square;margin-left: 50px">
+            <li style="list-style-image :square;width:29%;float:left;list-style-type:none;">
+                <span ng-click="showdetail()">123123</span>
+            </li>
+        </ul>
+    </div>
+    <!--<hr>
+    <div class="col-lg-12">
+        <table class="table-striped table-bordered table-hover table-responsive table">
+            <thead>
+            <tr>
+                <th>工序</th>
+                <th>生产日期</th>
+                <th>班别</th>
+                <th>钢种</th>
+                <th>cpk项目</th>
+                <th>cpk值</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="model in list">
+
+            <tr>
+                <td>{{model.pos}}</td>
+                <td>{{model.insTime}}</td>
+                <td>{{model.shiftId}}</td>
+                <td>{{model.stlGrdName}}</td>
+                <td>{{model.itemCd}}</td>
+                <td>{{model.cpk}}</td>
+            </tr>
+            </tbody>
+        </table>-->
+    <div class="pull-right">
+        <ul boundary-links="true" class="pagination-sm" first-text="&laquo;" items-per-page="50" last-text="&raquo;"
+            max-size="5"
+            next-text="&rsaquo;" ng-change="page()" ng-model="currentPage" previous-text="&lsaquo;"
+            total-items="totalItems" uib-pagination
+        ></ul>
+    </div>
+</div>
+
+</div>

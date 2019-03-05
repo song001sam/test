@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unissoft.test.mapper.inceptor2.QCMMapper">
+    <select id="queryInfoByPlateId" resultType="java.util.HashMap">
+        select PLATE_ID,RN,PLATE_TYPE,ROLL_SCH_ID,SMP_LOT,SLAB_ID,HEAT_ID,STATUS,PRE_STATUS,STL_GRD_CD,ORG_STL_GRD_CD,MAT_QUL_CD,ORG_MAT_QUL_CD,MATCODE,PLATE_ACT_THK,PLATE_ACT_WTH,PLATE_ACT_LTH,PLATE_WGT,CAL_WGT,STD,PLATE_ORD_WGT,PROD_ID,ORD_FL,PROD_TIME,SHIFT,CREW,SMP_FL,JUDGE_TIME,PROD_GRD,SURF_GRD,JUN_CHECK_LVL,THK_ADD,STD_SPEC,INS_PGMID,INS_TIME,UPD_DATE,UPD_EMP_ID,MEMO,W_PRO,CONTRACT_NO,SALE_NO,SALE_RNO,POTHOOK,MONTH_FLAG,DISPATCH_ID,RS_FL,PLATE_BJ,MATNAME,WGT_EMPID,WGT_TIME,STD_NAME,WGT_FL from ZG_BTZ_PLATE_HB
+        where plate_id= #{plateId}
+    </select>
+
+    <select id="getEchartsByHeatId" resultType="java.util.HashMap">
+        select instime,${argNew} as secArg from ${tableName} where heatno = #{heatId}
+    </select>
+
+    <select id="queryStreamNumBySlabId" resultType="java.lang.String">
+        select liuhao from qcm_ccm_slab where slab_id = #{slabId}
+    </select>
+
+    <select id="getEchartsBySlabId" resultType="java.util.Map">
+        select instime,${banpi} as secArg from QCM_CCM_SLAB where SLAB_ID = #{slabId} and LIUHAO=#{liuhao}
+    </select>
+
+    <select id="queryInfoByCCM" resultType="java.util.Map">
+     SELECT instime,${a} as newarg  FROM QCM_CCM_SLAB WHERE endTime >= #{dt1} AND startTime &lt;= #{dt2} AND furnaceno = #{sub} AND LIUHAO = #{stream} ORDER BY startTime;
+    </select>
+
+    <select id="queryInfoByBOF" resultType="java.util.Map">
+        SELECT instime,${a} as newarg FROM QCM_BOF WHERE heatedtime >= #{dt1} AND heatsttime &lt;= #{dt2} AND furnaceno = #{sub} ORDER BY heatsttime;
+    </select>
+
+    <select id="queryInfoByLF" resultType="java.util.Map">
+        SELECT instime,${a} as newarg FROM QCM_LF WHERE heatedtime >= #{dt1} AND heatsttime &lt;= #{dt2} AND furnaceno = #{sub} ORDER BY heatsttime;
+    </select>
+</mapper>

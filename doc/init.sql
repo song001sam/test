@@ -44,7 +44,7 @@ CREATE TABLE `t_gt_1` (
   `NL_Z` decimal(10,5) DEFAULT NULL
 );
 set global local_infile = 'ON';
-load data local infile '/Users/songshaochen/Documents/中冶京诚/data40crNohead-new.csv' into table t_gt_1 fields terminated by',';
+load data local infile '/tmp/data40crNohead-new.csv' into table t_gt_1 fields terminated by',';
 
 CREATE TABLE `t_gt_0` (
   `C` decimal(10,5) DEFAULT NULL,
@@ -69,4 +69,4 @@ CREATE TABLE `t_gt_0` (
   `NL_Z` decimal(10,5) DEFAULT NULL
 );
 set global local_infile = 'ON';
-load data local infile '/Users/songshaochen/Documents/中冶京诚/data45Nohead-new.csv' into table t_gt_0 fields terminated by',';
+load data local infile '/tmp/data45Nohead-new.csv' into table t_gt_0 fields terminated by',';

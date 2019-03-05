@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unissoft.test.mapper.inceptor.ZXZLYCMapper">
+    <select id="selectLH" parameterType="java.util.HashMap" resultType="java.lang.String">
+        use pdw;
+        <choose>
+            <when test="GX=='转炉'">
+                select HEAT_ID as luhao from L2_LD_PGM_AREAS_HB where proc_id = (SELECT max(proc_id) FROM
+                L2_LD_PGM_AREAS_HB WHERE FURNACENO=#{num}) AND FURNACENO=#{num};
+            </when>
+            <when test="GX=='LF1' or GX=='LF2' or GX=='LF5'">
+                select HeatNo as luhao from L2_LF_CurHeatsPool_HB where rowkey =
+                #{num};--CONCAT(CONCAT(#{num},'_'),#{num1});
+            </when>
+            <when test="GX=='RH'">
+                select HeatNo as luhao from L2_RH_CurHeatPool_HB where rowkey = #{num};
+            </when>
+            <when test="GX=='CCM'">
+                select col2 as luhao from L2_CCM_TAB22_HB where col1 = (select col1 from L2_CCM_TAB21_HB where col4 =
+                '93' and FURNACENO = #{num}) and FURNACENO = #{num};
+            </when>
+            <otherwise>
+                select 1 from system.dual;
+            </otherwise>
+        </choose>
+        use bdia;
+    </select>
+</mapper>

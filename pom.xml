@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -163,6 +163,22 @@
             <scope>system</scope>
             <systemPath>/Users/songshaochen/IdeaProjects/BDIA/src/main/resources/lib/inceptor-sdk-transwarp-5.1.0.jar
             </systemPath>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/gov.nist.math/jama -->
+        <dependency>
+            <groupId>gov.nist.math</groupId>
+            <artifactId>jama</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>one.util</groupId>
+            <artifactId>streamex</artifactId>
+            <version>0.6.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.1</version>
         </dependency>
     </dependencies>
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unissoft.test.mapper.inceptor2.CPKMZMapper">
+    <select id="selectPos" resultType="java.lang.String">
+        select cd_name from LG_BBB_CD_HB
+        where cd_short_eng = 'CPK' AND cd = #{pos};
+    </select>
+
+    <select id="selectGZ" resultType="java.lang.String">
+        select cd_name
+        from LG_BBB_CD_HB
+        where cd_mana_no = 'Q0001' AND cd = #{gz};
+    </select>
+
+    <select id="selectBB" resultType="java.lang.String">
+        select cd_name from LG_BBB_CD_HB
+        where cd_mana_no = 'P0500' AND cd = #{bb};
+    </select>
+
+    <select id="selectCPKItem" resultType="java.lang.String">
+        select cd_name from LG_BBB_CD_HB
+        where cd_mana_no = 'CPK01' AND cd = #{cpkItem};
+    </select>
+    <!--分割线-->
+    <select id="selectPosALL" resultType="java.util.Map">
+        select cd as posName,cd_name as posValue
+        from LG_BBB_CD_HB
+        where cd_short_eng = 'CPK';
+    </select>
+
+    <select id="selectGZALL" resultType="java.util.Map">
+        select cd as gzName,cd_name as gzValue
+        from LG_BBB_CD_HB
+        where cd_mana_no = 'Q0001';
+    </select>
+
+    <select id="selectBBALL" resultType="java.util.Map">
+        select cd as bbName,cd_name as bbValue
+        from LG_BBB_CD_HB
+        where cd_mana_no = 'P0500';
+    </select>
+
+    <select id="selectCPKItemALL" resultType="java.util.Map">
+        select cd as cpkName,cd_name as cpkValue
+        from LG_BBB_CD_HB
+        where cd_mana_no = 'CPK01';
+    </select>
+</mapper>

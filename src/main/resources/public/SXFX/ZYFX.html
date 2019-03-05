@@ -1,0 +1,134 @@
+<div ng-init="init()">
+    <h1 class="page-header">
+        过程质量分析>质量缺陷分析（单工序分析）>主元分析
+    </h1>
+    <ng-include ng-controller="headerController" src="'header/header.html'"></ng-include>
+    <h5 class="page-header"></h5>
+    <div class="row">
+        <div class="col-lg-2">
+            <h5>参数设置</h5>
+            <div class="row">
+                <div class="col-lg-12 pre-scrollable">
+                    <table class=" table-bordered table-hover table small">
+                        <thead>
+                        <tr>
+                            <!--<th class="col-lg-3">字段名称</th>-->
+                            <th class="col-lg-6">字段中文</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-class="{'info':chcekColSelected(col)}" ng-click="selectCol(col);"
+                            ng-repeat="col  in cols">
+                            <!--<td>{{col.key}}</td>-->
+                            <td style=" white-space:nowrap">{{col.value}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1">
+            <button class="btn btn-primary btn-mini small" ng-click="addIn()" ng-if="selectedCol">添加输入</button>
+            <button class="btn btn-info  btn-mini small" ng-click="delIn()" ng-if="selectedColRightIn">移除输入</button>
+            <!--<button class="btn btn-primary  btn-mini small" ng-click="addOut()" ng-if="selectedCol">添加输出</button>-->
+            <!--<button class="btn btn-info  btn-mini small" ng-click="delOut()" ng-if="selectedColRightOut">移除输出</button>-->
+        </div>
+        <div class="col-lg-2">
+            <div class="col-lg-12">
+                <h5>分析变量</h5>
+                <!--<button>选择>></button>-->
+                <!--<button>取消<<</button>-->
+                <table class="table-bordered table-hover table small">
+                    <thead>
+                    <tr>
+                        <!--<th class="col-lg-3">字段名称</th>-->
+                        <th class="col-lg-6">字段中文</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-class="{'info':chcekColSelected(col)}" ng-click="selectColRightIn(col);"
+                        ng-repeat="col  in inCols">
+                        <!--<td>{{col.key}}</td>-->
+                        <td style=" white-space:nowrap">{{col.value}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-12">
+                    <button class="btn btn-info" ng-click="show(0);">计算标准化</button>
+                </div>
+                <div class="col-lg-12">
+                    <button class="btn btn-info" ng-click="show(1);">计算源数据</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-7" ng-show="showTable" style="border-left-style:dotted;border-left-width: 1px">
+            <h4>基本计算结果</h4>
+            <table class="table-bordered table-hover table small">
+                <thead>
+                <tr>
+                    <th>特征值</th>
+                    <th>贡献率</th>
+                    <th>累计贡献率</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr
+                        ng-init="outerIndex = $index;" ng-repeat="col  in data.sortedGXpercent[0]">
+                    <td>{{data.sortedEigenvalueArray[0][$index]|numFormat:4}}</td>
+                    <td>{{data.sortedGXpercent[0][$index]|numFormat:4}}</td>
+                    <td>{{data.plusSortedEigenvalueArray[0][$index]|numFormat:4}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <h4>主成分载荷</h4>
+            <table class="table-bordered table-hover table small">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th ng-repeat="col in inCols">
+                        {{col.value}}
+                        <!--第{{$index+1}}主成分-->
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-init="outerIndex = $index;" ng-repeat="col  in data.ZCFZH[0]">
+                    <td>第{{$index+1}}主成分</td>
+                    <td ng-repeat="doub in data.ZCFZH track by $index" style="white-space:nowrap">
+                        {{data.ZCFZH[$index][outerIndex]|numFormat:4}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class=" pre-scrollable">
+                <h4>主成分得分</h4>
+                <table class="table-bordered table-hover table small">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <!--colspan="{{data.resultMatrix[0].length}}"-->
+                        <th ng-repeat="col  in data.resultMatrix[0]">
+                            第{{$index+1}}主成分
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                            ng-init="outerIndex = $index;" ng-repeat="col  in data.resultMatrix">
+                        <td>{{$index+1}}</td>
+                        <td ng-repeat="doub in col track by $index" style="white-space:nowrap">
+                            {{doub|numFormat:4}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 package com.unissoft.test.service;
 
+import java.util.Collection;
+
 public interface MathService {
     double getAverage(double[] arr);
 
@@ -14,4 +16,18 @@ public interface MathService {
     double getMax(double[] arr);
 
     double getMin(double[] arr);
+
+    double getOneWayAnovaFValue(Collection<double[]> doubles);
+
+    double getOneWayAnovaPValue(Collection<double[]> doubles);
+
+    double[][] getPXG(double[][] doubles);
+
+    double getSum(double[] arr);
+
+    double getMedian(double[] arr);
+
+    double getSkewness(double[] arr);
+
+    double getKurtosis(double[] arr);
 }

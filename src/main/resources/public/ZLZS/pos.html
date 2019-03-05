@@ -1,0 +1,87 @@
+<div>
+    <h1 class="page-header">
+        过程质量追溯>工位追溯
+    </h1>
+    <div class="row">
+        <div class="col-lg-1">
+            工位
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control input-sm" editable="false" ng-change="posChange()" ng-model="pos"
+                    ng-options="x.code for x in POSOption">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-lg-1">
+            项目
+        </div>
+        <div class="col-lg-2">
+            <select class="form-control input-sm" editable="false" ng-model="a"
+                    ng-options="x.code for x in AOption">
+                <option></option>
+            </select>
+        </div>
+        <div class="col-lg-3" ng-show="showST">
+            <div class="row">
+                <div class="col-lg-3">
+                    流号
+                </div>
+                <div class="col-lg-8">
+                    <select class="form-control input-sm" editable="false" ng-model="stream"
+                            ng-options="x.code for x in STOption">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <!--<div class="row">-->
+    <!--<div class="col-lg-1">生产日期</div>-->
+    <!--<div class="col-lg-5">-->
+    <!--<div style="vertical-align: middle;">-->
+    <!--<p class="input-group col-lg-5" style="float: left;">-->
+    <!--<input class="form-control input-sm" close-text="Close" datepicker-options="dateOptions"-->
+    <!--is-open="popup1.opened" alt-input-formats="altInputFormats"-->
+    <!--ng-model="dt1" ng-required="true" type="text" uib-datepicker-popup="yyyy-MM-dd"/>-->
+    <!--<span class="input-group-btn">-->
+    <!--<button class="btn btn-default input-sm" ng-click="open1()" type="button"><i-->
+    <!--class="glyphicon glyphicon-calendar"></i></button>-->
+    <!--</span>-->
+    <!--</p>-->
+    <!--<span class="col-lg-2 text-center">至</span>-->
+    <!--<p class="input-group col-lg-5">-->
+    <!--<input class="form-control input-sm" close-text="Close" datepicker-options="dateOptions"-->
+    <!--is-open="popup2.opened"-->
+    <!--ng-model="dt2" ng-required="true" type="text" uib-datepicker-popup="yyyy-MM-dd"/>-->
+    <!--<span class="input-group-btn">-->
+    <!--<button class="btn btn-default input-sm" ng-click="open2()" type="button"><i-->
+    <!--class="glyphicon glyphicon-calendar"></i></button>-->
+    <!--</span>-->
+    <!--</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <div class="row">
+        <div class="col-lg-1">
+            开始时间
+        </div>
+        <div class="col-lg-2">
+            <wui-date btns="{'ok':'确定','now':'此刻'}" format="yyyy-mm-dd hh:mm:ss" id="dt1" interval="1"
+                      ng-model="dt1" placeholder="请选择或输入日期"></wui-date>
+        </div>
+        <div class="col-lg-1">
+            结束时间
+        </div>
+        <div class="col-lg-2">
+            <wui-date btns="{'ok':'确定','now':'此刻'}" format="yyyy-mm-dd hh:mm:ss" id="dt2" interval="1"
+                      ng-model="dt2" placeholder="请选择或输入日期"></wui-date>
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-default" ng-click="query()">查询</button>
+        </div>
+    </div>
+    <hr>
+    <div id="echarts" style="height: 500px;"></div>
+</div>

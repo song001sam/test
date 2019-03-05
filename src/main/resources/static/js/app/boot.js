@@ -12,10 +12,12 @@ require.config({
         'jquery': 'jquery-3.3.1.min',
         'datetimepicker': 'Angularjs/datetimepicker',
         'datetimepicker.templates': 'Angularjs/datetimepicker.templates',
+        'angularlocale': 'Angularjs/angular-locale_zh-cn',
         'moment': 'moment',
         'echarts': 'echarts',
-        'bootstrap-slider': 'Bootstrap/bootstrap-slider'
-
+        'dataTool': 'dataTool',
+        'bootstrap-slider': 'Bootstrap/bootstrap-slider',
+        'wui-date': 'Angularjs/wui-date'
 
     },
     shim: {
@@ -31,8 +33,10 @@ require.config({
         'jquery': {deps: ['angular']},
         'datetimepicker': {deps: ['angular']},
         'datetimepicker.templates': {deps: ['angular']},
+        'angularlocale': {deps: ['angular']},
         'moment': {deps: ['angular']},
-        'bootstrap-slider': {deps: ['angular']}
+        'bootstrap-slider': {deps: ['angular']},
+        'wui-date': {deps: ['angular']}
     }
 });
 require(['angular', 'app/app-routes'], function (angular) {

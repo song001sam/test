@@ -146,4 +146,8 @@
     <select id="selectUserRolePermissionByName" parameterType="java.lang.String" resultMap="CustomResultMap">
     select u.*,r.*,p.* from t_Sys_User u inner join t_Sys_User_2_Role ur on u.id=ur.uid left join t_Sys_Role r on ur.rid=r.id inner join t_Sys_Role_2_Permission rp on r.id=rp.rid left join t_Sys_Permission p on rp.pid=p.id where u.userName=#{userName}
   </select>
+
+    <select id="selectList" resultMap="CustomResultMap">
+    select u.*,r.*,p.* from t_Sys_User u inner join t_Sys_User_2_Role ur on u.id=ur.uid left join t_Sys_Role r on ur.rid=r.id inner join t_Sys_Role_2_Permission rp on r.id=rp.rid left join t_Sys_Permission p on rp.pid=p.id
+  </select>
 </mapper>

@@ -1,0 +1,45 @@
+<div>
+    <h1 class="page-header">
+        工艺标准库管理>连铸工艺标准
+    </h1>
+    <div class="pull-right">
+        <button class="btn btn-primary " ng-click="openadd();">新增</button>
+        <button class="btn btn-info" ng-click="openUpdate();"> 修改</button>
+        <button class="btn btn-danger" ng-click="delete();"> 删除</button>
+    </div>
+    <div class="col-lg-12">
+        <table class="table-striped table-bordered table-hover table-responsive table">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>序号</th>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>说明</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="model in list">
+
+            <tr ng-click="rowClick($index)">
+                <td><input name="radio" ng-model="radioModel" type="radio" value="{{$index}}"/></td>
+                <td>{{$index+1}}</td>
+                <td>{{model.id}}</td>
+                <td>{{model.name}}</td>
+                <td>
+                    {{model.age}}
+                </td>
+                <td>{{model.remark}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="pull-right">
+            <ul boundary-link-numbers="true" boundary-links="true" class="pagination-sm" first-text="第一页"
+                force-ellipses="true" items-per-page="5" last-text="最后页" max-size="10"
+                next-text="下一页" ng-change="page()" ng-model="currentPage" previous-text="上一页"
+                total-items="totalItems"
+                uib-pagination></ul>
+        </div>
+    </div>
+</div>

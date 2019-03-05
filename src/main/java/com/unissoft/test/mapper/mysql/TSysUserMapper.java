@@ -4,6 +4,8 @@ import com.unissoft.test.entity.SysUser;
 import com.unissoft.test.entity.TSysUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface TSysUserMapper {
     /**
@@ -55,4 +57,6 @@ public interface TSysUserMapper {
     int updateByPrimaryKey(TSysUser record);
 
     SysUser selectUserRolePermissionByName(String userName);
+
+    List<SysUser> selectList();
 }

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unissoft.test.mapper.inceptor2.GYBZMapper">
+    <select id="selectLianZhuList" parameterType="com.unissoft.test.entity.Gybz_LianZhu"
+            resultType="com.unissoft.test.entity.Gybz_LianZhu">
+        select * from lg_bqa_techcast_hb
+        <where>
+            <if test="fmatcode != null and fmatcode != '' ">
+                and fmatcode = #{fmatcode}
+            </if>
+            <if test="con_no != null and con_no != '' ">
+                and con_no = #{con_no}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+
+    <select id="selectLianZhuSub1List" parameterType="com.unissoft.test.entity.Gybz_LianZhu_sub1"
+            resultType="com.unissoft.test.entity.Gybz_LianZhu_sub1">
+        select * from lg_bqa_techcast_s1_hb
+        <where>
+            <if test="fmatcode != null and fmatcode != '' ">
+                and fmatcode = #{fmatcode}
+            </if>
+            <if test="con_no != null and con_no != '' ">
+                and con_no = #{con_no}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+
+    <select id="selectLianZhuSub2List" parameterType="com.unissoft.test.entity.Gybz_LianZhu_sub2"
+            resultType="com.unissoft.test.entity.Gybz_LianZhu_sub2">
+        select * from lg_bqa_techcast_s2_hb
+        <where>
+            <if test="fmatcode != null and fmatcode != '' ">
+                and fmatcode = #{fmatcode}
+            </if>
+            <if test="cast_no != null and cast_no != '' ">
+                and cast_no = #{cast_no}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--LG_BQA_TECHCON_M_HB	转炉工艺参数主表-->
+    <select id="selectZhuanLuList" parameterType="com.unissoft.test.entity.Gybz_ZhuanLu"
+            resultType="com.unissoft.test.entity.Gybz_ZhuanLu">
+        select * from lg_bqa_techcon_m_hb
+        <where>
+            <if test="fmatcode != null and fmatcode != '' ">
+                and fmatcode = #{fmatcode}
+            </if>
+            <if test="stl_grd != null and stl_grd != '' ">
+                and stl_grd = #{stl_grd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--LG_BQA_TECHCON_S_HB	转炉工艺参数子表-->
+    <select id="selectZhuanLuSubList" parameterType="com.unissoft.test.entity.Gybz_ZhuanLu_sub"
+            resultType="com.unissoft.test.entity.Gybz_ZhuanLu_sub">
+        select * from lg_bqa_techcon_s_hb
+        <where>
+            <if test="fmatcode != null and fmatcode != '' ">
+                and fmatcode = #{fmatcode}
+            </if>
+            <if test="stl_grd != null and stl_grd != '' ">
+                and stl_grd = #{stl_grd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--LG_BQA_TECHREFIND_HB	精炼工艺参数表	-->
+    <select id="selectJingLianList" parameterType="com.unissoft.test.entity.Gybz_JingLian"
+            resultType="com.unissoft.test.entity.Gybz_JingLian">
+        select * from lg_bqa_techrefind_hb
+        <where>
+            <if test="fmatcode != null and fmatcode != '' ">
+                and fmatcode = #{fmatcode}
+            </if>
+            <if test="stl_grd != null and stl_grd != '' ">
+                and stl_grd = #{stl_grd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--LG_BQA_AGRCHEM_LG_HB	放行成分标准	-->
+    <select id="selectFangXingList" parameterType="com.unissoft.test.entity.Gybz_FangXing"
+            resultType="com.unissoft.test.entity.Gybz_FangXing">
+        select * from lg_bqa_agrchem_lg_hb
+        <where>
+            <if test="std_spec != null and std_spec != '' ">
+                and std_spec = #{std_spec}
+            </if>
+            <if test="stl_grd_cd != null and stl_grd_cd != '' ">
+                and stl_grd_cd = #{stl_grd_cd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--LG_BQA_STDCHEM_LG_HB	内控成分标准		-->
+    <select id="selectNeiKongList" parameterType="com.unissoft.test.entity.Gybz_NeiKong"
+            resultType="com.unissoft.test.entity.Gybz_NeiKong">
+        select * from lg_bqa_stdchem_lg_hb
+        <where>
+            <if test="std_spec != null and std_spec != '' ">
+                and std_spec = #{std_spec}
+            </if>
+            <if test="stl_grd_cd != null and stl_grd_cd != '' ">
+                and stl_grd_cd = #{stl_grd_cd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--ZG_BQA_STDMAT_HB	性能标准表-->
+    <select id="selectXingNengList" parameterType="com.unissoft.test.entity.Gybz_XingNeng"
+            resultType="com.unissoft.test.entity.Gybz_XingNeng">
+        select * from zg_bqa_stdmat
+        <where>
+            <if test="std_spec != null and std_spec != '' ">
+                and std_spec = #{std_spec}
+            </if>
+            <if test="stl_grd_cd != null and stl_grd_cd != '' ">
+                and stl_grd_cd = #{stl_grd_cd}
+            </if>
+        </where>
+        order by join_pkey
+    </select>
+    <!--ZG_BKA_CPKSTD_1_HB	加热炉工艺标准-->
+    <select id="selectJiaReLuList" parameterType="com.unissoft.test.entity.Gybz_JiaReLu"
+            resultType="com.unissoft.test.entity.Gybz_JiaReLu">
+        select * from zg_bka_cpkstd_1_hb
+        <where>
+            <if test="line != null and line != '' ">
+                and line = #{line}
+            </if>
+            <if test="stl_grd_cd != null and stl_grd_cd != '' ">
+                and stl_grd_cd = #{stl_grd_cd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+    <!--	ZG_BKA_CPKSTD_2_HB	轧制工艺标准表-->
+    <select id="selectZhaZhiList" parameterType="com.unissoft.test.entity.Gybz_ZhaZhi"
+            resultType="com.unissoft.test.entity.Gybz_ZhaZhi">
+        select * from zg_bka_cpkstd_2_hb
+        <where>
+            <if test="line != null and line != '' ">
+                and line = #{line}
+            </if>
+            <if test="stl_grd_cd != null and stl_grd_cd != '' ">
+                and stl_grd_cd = #{stl_grd_cd}
+            </if>
+        </where>
+        order by rowkey
+    </select>
+</mapper>

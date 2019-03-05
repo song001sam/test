@@ -3,6 +3,7 @@ package com.unissoft.test.utils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resources;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,6 +23,15 @@ public class MathUtils {
 
         }
         return result;
+    }
+
+    public static double round(double num) {
+        if (Double.isNaN(num)) {
+            return 0D;
+        } else {
+            return new BigDecimal(num).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        }
+
     }
 
     public static double[][] toPrimitive(Map<String, List<Double>> map) {
